@@ -91,7 +91,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
-    @PreAuthorize("hasAuthority('PRODUCT_VIEW_READ')")
+    @PreAuthorize("hasAuthority('PRODUCT_READ')")
     public Product getProduct(Long id) throws EntityNotInDatabaseException {
         Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         return product.isDeleted() ? null : product;

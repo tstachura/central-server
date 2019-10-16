@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @EnableAutoConfiguration
-@Table(name = "PRODUCT_MODEL")
+@Table(name = "PRODUCT_TYPE")
 @Getter
 @Setter
 public class ProductType implements Serializable {

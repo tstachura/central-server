@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 
-public class DeviceRepositoryImpl implements CustomProductRepository {
+public class ProductRepositoryImpl implements CustomProductRepository {
 
 
     @PersistenceContext

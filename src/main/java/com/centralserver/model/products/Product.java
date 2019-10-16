@@ -16,7 +16,7 @@ import java.util.Calendar;
 @Getter
 @Setter
 @EnableAutoConfiguration
-@Table(name = "DEVICE")
+@Table(name = "PRODUCT")
 public class Product implements Serializable {
 
     @Id
@@ -67,5 +67,4 @@ public class Product implements Serializable {
         this.id=id;
         this.version = version;
     }
-
 }

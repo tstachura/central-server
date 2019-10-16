@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/secured/product/type")
+@RequestMapping("/products/type")
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
-public class DeviceModelController {
+public class ProductTypeController {
 
     @Autowired
     private ProductTypeServiceImpl productTypeService;

@@ -12,8 +12,6 @@ import java.util.List;
 
 public interface WarehouseService {
 
-    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
-    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
     List<Warehouse> getAll();
 
     void createWarehouse(Warehouse warehouseAddDto) throws SystemBaseException;
