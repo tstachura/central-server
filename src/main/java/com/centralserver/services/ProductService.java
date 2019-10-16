@@ -1,9 +1,9 @@
 package com.centralserver.services;
 
+import com.centralserver.dto.ProductDto;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
-import com.centralserver.exception.base.SystemBaseException;
 import com.centralserver.model.products.Product;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,11 +23,11 @@ public interface ProductService {
 
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_CREATE')")
-    void createNewProduct(Product product) throws DatabaseErrorException;
+    void createNewProduct(ProductDto product) throws DatabaseErrorException;
 
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_UPDATE')")
-    void updateProduct(Product product) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException;
+    void updateProduct(ProductDto product) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException;
 
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_DELETE')")

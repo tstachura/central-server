@@ -1,7 +1,6 @@
 package com.centralserver.services.impl;
 
-import com.centralserver.dto.user.PasswordInfoDto;
-import com.centralserver.dto.user.PasswordInfoForAdmin;
+import com.centralserver.dto.PasswordInfoDto;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
 import com.centralserver.exception.ServiceException;
@@ -73,17 +72,17 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('PASSWORD_ADMIN_READ')")
-    public PasswordInfoForAdmin getPasswordForAdmin(Long id) throws EntityNotInDatabaseException {
-        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-        return PasswordInfoForAdmin.builder().userVersion(user.getVersion()).id(id).build();
+    public PasswordInfoDto getPasswordForAdmin(String username) throws EntityNotInDatabaseException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        return PasswordInfoDto.builder().userVersion(user.getVersion()).username(username).build();
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('PASSWORD_ADMIN_UPDATE')")
-    public void updatePasswordForAdmin(PasswordInfoForAdmin passwordInfoForAdmin) throws EntityNotInDatabaseException, EntityOptimisticLockException {
+    public void updatePasswordForAdmin(PasswordInfoDto passwordInfoForAdmin) throws EntityNotInDatabaseException, EntityOptimisticLockException {
         try {
-            User user = userRepository.findById(passwordInfoForAdmin.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            User user = userRepository.findByUsername(passwordInfoForAdmin.getUsername()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             userRepository.detach(user);
             user.setPassword(passwordEncoder.encode(passwordInfoForAdmin.getNewPassword()));
             user.setVersion(passwordInfoForAdmin.getUserVersion());

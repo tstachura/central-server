@@ -11,5 +11,4 @@ public class CentralServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CentralServerApplication.class, args);
 	}
-
 }

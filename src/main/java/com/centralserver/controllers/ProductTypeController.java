@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products/type")
+@RequestMapping("api/products/type")
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
 public class ProductTypeController {
 

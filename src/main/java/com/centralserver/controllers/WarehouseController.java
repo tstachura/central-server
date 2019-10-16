@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/warehouses")
+@RequestMapping("api/warehouses")
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
 public class WarehouseController {
 

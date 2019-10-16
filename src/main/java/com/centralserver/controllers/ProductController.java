@@ -1,5 +1,6 @@
 package com.centralserver.controllers;
 
+import com.centralserver.dto.ProductDto;
 import com.centralserver.exception.base.SystemBaseException;
 import com.centralserver.model.products.Product;
 import com.centralserver.services.ProductService;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("api/products")
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
 public class ProductController {
 
@@ -37,15 +38,15 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Product product) throws SystemBaseException {
-        productService.createNewProduct(product);
+    public ResponseEntity<?> create(@RequestBody ProductDto productDto) throws SystemBaseException {
+        productService.createNewProduct(productDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Product product) throws SystemBaseException {
-        productService.updateProduct(product);
+    public void update(@RequestBody ProductDto productDto) throws SystemBaseException {
+        productService.updateProduct(productDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

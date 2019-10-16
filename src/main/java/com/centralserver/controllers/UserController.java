@@ -1,8 +1,7 @@
 package com.centralserver.controllers;
 
 
-import com.centralserver.dto.user.PasswordInfoDto;
-import com.centralserver.dto.user.PasswordInfoForAdmin;
+import com.centralserver.dto.PasswordInfoDto;
 import com.centralserver.exception.base.SystemBaseException;
 import com.centralserver.model.users.User;
 import com.centralserver.model.users.UserRole;
@@ -19,10 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/users")
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
 public class UserController {
-
 
     @Autowired
     private UserService userService;
@@ -35,11 +33,11 @@ public class UserController {
         return userService.getPassword(auth.getName());
     }
 
-    @RequestMapping(value = "/password/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/password/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    PasswordInfoForAdmin getPasswordForAdmin(@PathVariable Long id) throws SystemBaseException {
-        return userService.getPasswordForAdmin(id);
+    PasswordInfoDto getPasswordForAdmin(@PathVariable String username) throws SystemBaseException {
+        return userService.getPasswordForAdmin(username);
     }
 
     @RequestMapping(value = "/password", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -51,8 +49,8 @@ public class UserController {
 
     @RequestMapping(value = "/password/admin", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void updatePasswordAdmin(@RequestBody PasswordInfoForAdmin passwordInfoForAdmin) throws SystemBaseException {
-        userService.updatePasswordForAdmin(passwordInfoForAdmin);
+    public void updatePasswordAdmin(@RequestBody PasswordInfoDto passwordInfoDto) throws SystemBaseException {
+        userService.updatePasswordForAdmin(passwordInfoDto);
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

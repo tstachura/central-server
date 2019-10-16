@@ -1,4 +1,4 @@
-package com.centralserver.dto.user;
+package com.centralserver.dto;
 
 import lombok.*;
 
@@ -23,5 +23,5 @@ public class RegistrationDto {
     private String workplace;
     private Long officeId;
     private List<String> roles;
-    private String language;
+
 }

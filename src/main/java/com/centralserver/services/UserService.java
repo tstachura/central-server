@@ -1,9 +1,8 @@
 package com.centralserver.services;
 
-import com.centralserver.dto.user.PasswordInfoDto;
-import com.centralserver.dto.user.PasswordInfoForAdmin;
+import com.centralserver.dto.PasswordInfoDto;
 import com.centralserver.exception.EntityNotInDatabaseException;
-import com.centralserver.exception.ServiceException;
+import com.centralserver.exception.EntityOptimisticLockException;
 import com.centralserver.exception.base.SystemBaseException;
 import com.centralserver.model.users.User;
 import com.centralserver.model.users.UserRole;
@@ -24,9 +23,13 @@ public interface UserService {
     @PreAuthorize("hasAuthority('USER_DELETE')")
     void deleteUser(String username) throws EntityNotInDatabaseException;
 
-    PasswordInfoForAdmin getPasswordForAdmin(Long id) throws SystemBaseException;
+    @Transactional
+    @PreAuthorize("hasAuthority('PASSWORD_ADMIN_READ')")
+    PasswordInfoDto getPasswordForAdmin(String username) throws EntityNotInDatabaseException;
 
-    void updatePasswordForAdmin(PasswordInfoForAdmin passwordInfoForAdmin) throws SystemBaseException;
+    @Transactional
+    @PreAuthorize("hasAuthority('PASSWORD_ADMIN_UPDATE')")
+    void updatePasswordForAdmin(PasswordInfoDto passwordInfoForAdmin) throws EntityNotInDatabaseException, EntityOptimisticLockException;
 
     PasswordInfoDto getPassword(String username) throws SystemBaseException;
 

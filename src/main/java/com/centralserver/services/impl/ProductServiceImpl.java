@@ -1,9 +1,13 @@
 package com.centralserver.services.impl;
 
+import com.centralserver.dto.ProductDto;
+import com.centralserver.dto.converter.ProductConverter;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
+import com.centralserver.model.Warehouse;
 import com.centralserver.model.products.Product;
+import com.centralserver.model.products.ProductType;
 import com.centralserver.repositories.ProductRepository;
 import com.centralserver.repositories.ProductTypeRepository;
 import com.centralserver.repositories.UserRepository;
@@ -59,9 +63,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_CREATE')")
-    public void createNewProduct(Product product) throws DatabaseErrorException {
+    public void createNewProduct(ProductDto product) throws DatabaseErrorException {
         try {
-            productRepository.saveAndFlush(product);
+            Warehouse warehouse = warehouseRepository.getOne(product.getWarehouseId());
+            ProductType productType = productTypeRepository.getOne(product.getProductTypeId());
+            productRepository.saveAndFlush(ProductConverter.toProduct(product, warehouse, productType));
         } catch (PersistenceException e) {
             throw new DatabaseErrorException(DatabaseErrorException.SERIAL_NUMBER_NAME_TAKEN);
         }
@@ -70,11 +76,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_UPDATE')")
-    public void updateProduct(Product product) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException {
+    public void updateProduct(ProductDto product) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException {
         try {
             Product oldProduct = productRepository.findById(product.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             productRepository.detach(oldProduct);
-            productRepository.saveAndFlush(product);
+            Warehouse warehouse = warehouseRepository.getOne(product.getWarehouseId());
+            ProductType productType = productTypeRepository.getOne(product.getProductTypeId());
+            productRepository.saveAndFlush(ProductConverter.toProduct(product, warehouse, productType));
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         } catch (PersistenceException e) {
