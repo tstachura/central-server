@@ -1,7 +1,6 @@
 package com.centralserver.model.products;
 
 import com.centralserver.model.enums.ProductStatus;
-import com.centralserver.model.Warehouse;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.internal.NotNull;
 import lombok.Getter;

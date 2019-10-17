@@ -1,5 +1,9 @@
 package com.centralserver.services;
 
+import com.centralserver.dto.ProductTypeDto;
+import com.centralserver.exception.DatabaseErrorException;
+import com.centralserver.exception.EntityNotInDatabaseException;
+import com.centralserver.exception.EntityOptimisticLockException;
 import com.centralserver.exception.base.SystemBaseException;
 import com.centralserver.model.products.ProductType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,16 +14,23 @@ import java.util.List;
 
 public interface ProductTypeService {
 
-    ProductType getProductTypeById(Long id) throws SystemBaseException;
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('PRODUCT_TYPE_READ')")
+    ProductType getProductTypeById(Long id) throws EntityNotInDatabaseException;
 
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_TYPE_LIST_READ')")
     List<ProductType> getAllProductTypes();
 
-    Long createNewDeviceModel(ProductType deviceModelAddDto) throws SystemBaseException;
+    @Transactional(propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('PRODUCT_TYPE_CREATE')")
+    void createNewDeviceModel(ProductTypeDto productTypeDto) throws DatabaseErrorException;
 
-    void updateProductType(ProductType deviceModelEditDto) throws SecurityException, SystemBaseException;
+    @Transactional(propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('PRODUCT_TYPE_UPDATE')")
+    void updateProductType(ProductTypeDto productTypeDto) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException;
 
-    void deleteDeviceModelById(Long id) throws SystemBaseException;
-
+    @Transactional(propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('PRODUCT_TYPE_DELETE')")
+    void deleteDeviceModelById(Long id) throws EntityNotInDatabaseException;
 }

@@ -1,8 +1,9 @@
 package com.centralserver.controllers;
 
-import com.centralserver.dto.user.UserEditDto;
+import com.centralserver.dto.RegistrationDto;
+import com.centralserver.dto.AccountDto;
 import com.centralserver.exception.base.SystemBaseException;
-import com.centralserver.services.AccountEditService;
+import com.centralserver.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,18 +13,25 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/account/edit")
+@RequestMapping("api/account")
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
-public class AccountEditController {
+public class AccountController {
 
 
     @Autowired
-    private AccountEditService accountEditService;
+    private AccountService accountService;
 
-    @RequestMapping(value = "/admin", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "admin/edit", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> saveAccountAfterEdit(@RequestBody UserEditDto data) throws SystemBaseException {
-        accountEditService.updateAccountbyAdmin(data);
+    public ResponseEntity<?> saveAccountAfterEdit(@RequestBody AccountDto data) throws SystemBaseException {
+        accountService.updateAccountbyAdmin(data);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "admin/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public ResponseEntity<?> addUser(@RequestBody RegistrationDto data) throws SystemBaseException {
+        accountService.registerNewUserAccount(data, true);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

@@ -18,6 +18,5 @@ public class ProductDto {
     private Long productTypeId;
     private String lastUpdate;
     private String createDate;
-    private boolean deleted;
     private Long warehouseId;
 }

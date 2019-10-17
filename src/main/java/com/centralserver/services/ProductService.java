@@ -23,7 +23,7 @@ public interface ProductService {
 
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_CREATE')")
-    void createNewProduct(ProductDto product) throws DatabaseErrorException;
+    void createNewProduct(ProductDto productDto) throws DatabaseErrorException;
 
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_UPDATE')")

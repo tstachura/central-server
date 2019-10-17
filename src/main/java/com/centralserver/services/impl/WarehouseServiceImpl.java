@@ -1,8 +1,10 @@
 package com.centralserver.services.impl;
 
+import com.centralserver.dto.WarehouseDto;
+import com.centralserver.dto.converter.WarehouseConverter;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
-import com.centralserver.model.Warehouse;
+import com.centralserver.model.products.Warehouse;
 import com.centralserver.repositories.WarehouseRepository;
 import com.centralserver.services.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,23 +41,23 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_CREATE')")
-    public void createWarehouse(Warehouse warehouse) throws DatabaseErrorException {
+    public void createWarehouse(WarehouseDto warehouseDto) throws DatabaseErrorException {
         try {
-            warehouseRepository.saveAndFlush(warehouse);
+            Warehouse warehouse = new Warehouse();
+            warehouseRepository.saveAndFlush(WarehouseConverter.toWarehouse(warehouseDto, warehouse));
         } catch (PersistenceException e) {
             throw new DatabaseErrorException(DatabaseErrorException.WAREHOUSE_NAME_TAKEN);
         }
-
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('WAREHOUSE_UPDATE')")
-    public void updateWarehouse(Warehouse warehouse) throws EntityNotInDatabaseException, DatabaseErrorException {
+    public void updateWarehouse(WarehouseDto warehouseDto) throws EntityNotInDatabaseException, DatabaseErrorException {
         try {
-            Warehouse beforeWarehouse = warehouseRepository.findById(warehouse.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
-            warehouseRepository.detach(beforeWarehouse);
-            warehouseRepository.saveAndFlush(warehouse);
+            Warehouse oldWarehouse = warehouseRepository.findById(warehouseDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            warehouseRepository.detach(oldWarehouse);
+            warehouseRepository.saveAndFlush(WarehouseConverter.toWarehouse(warehouseDto, oldWarehouse));
         } catch (PersistenceException e) {
             throw new DatabaseErrorException(DatabaseErrorException.WAREHOUSE_NAME_TAKEN);
         }

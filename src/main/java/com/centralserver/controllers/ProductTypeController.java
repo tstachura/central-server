@@ -1,5 +1,6 @@
 package com.centralserver.controllers;
 
+import com.centralserver.dto.ProductTypeDto;
 import com.centralserver.exception.base.SystemBaseException;
 import com.centralserver.model.products.ProductType;
 import com.centralserver.services.impl.ProductTypeServiceImpl;
@@ -22,7 +23,6 @@ public class ProductTypeController {
     @Autowired
     private ProductTypeServiceImpl productTypeService;
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
@@ -40,14 +40,14 @@ public class ProductTypeController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public Long create(@RequestBody ProductType productType) throws SystemBaseException {
-        return productTypeService.createNewDeviceModel(productType);
+    public void create(@RequestBody ProductTypeDto productTypeDto) throws SystemBaseException {
+        productTypeService.createNewDeviceModel(productTypeDto);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody ProductType productType) throws SystemBaseException {
-        productTypeService.updateProductType(productType);
+    public void update(@RequestBody ProductTypeDto productTypeDto) throws SystemBaseException {
+        productTypeService.updateProductType(productTypeDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

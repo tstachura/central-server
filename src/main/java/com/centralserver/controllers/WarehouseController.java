@@ -1,7 +1,8 @@
 package com.centralserver.controllers;
 
+import com.centralserver.dto.WarehouseDto;
 import com.centralserver.exception.base.SystemBaseException;
-import com.centralserver.model.Warehouse;
+import com.centralserver.model.products.Warehouse;
 import com.centralserver.services.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,15 +38,15 @@ public class WarehouseController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Warehouse warehouse) throws SystemBaseException {
-        warehouseService.createWarehouse(warehouse);
+    public ResponseEntity<?> create(@RequestBody WarehouseDto warehouseDto) throws SystemBaseException {
+        warehouseService.createWarehouse(warehouseDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Warehouse warehouse) throws SystemBaseException {
-        warehouseService.updateWarehouse(warehouse);
+    public void update(@RequestBody WarehouseDto warehouseDto) throws SystemBaseException {
+        warehouseService.updateWarehouse(warehouseDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

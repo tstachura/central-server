@@ -1,4 +1,4 @@
-package com.centralserver.model;
+package com.centralserver.model.products;
 
 
 import com.centralserver.model.products.Product;

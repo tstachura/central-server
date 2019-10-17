@@ -1,10 +1,10 @@
 package com.centralserver.dto.converter;
 
 import com.centralserver.dto.ProductDto;
-import com.centralserver.model.Warehouse;
 import com.centralserver.model.enums.ProductStatus;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
+import com.centralserver.model.products.Warehouse;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,15 +24,14 @@ public class ProductConverter {
     }
 
 
-    public static Product toProduct(ProductDto productDto, Warehouse warehouse, ProductType productType) {
-        Product product = new Product();
-        product.setStatus(ProductStatus.available);
-        product.setWarehouse(warehouse);
-        product.setDeleted(false);
-        product.setSerialNumber(productDto.getSerialNumber());
-        product.setLastUpdate(Calendar.getInstance());
-        product.setCreateDate(Calendar.getInstance());
-        product.setProductType(productType);
-        return product;
+    public static Product toProduct(ProductDto productDto,Product oldProduct, Warehouse warehouse, ProductType productType) {
+        oldProduct.setStatus(ProductStatus.available);
+        oldProduct.setWarehouse(warehouse);
+        oldProduct.setDeleted(false);
+        oldProduct.setSerialNumber(productDto.getSerialNumber());
+        oldProduct.setLastUpdate(Calendar.getInstance());
+        oldProduct.setCreateDate(Calendar.getInstance());
+        oldProduct.setProductType(productType);
+        return oldProduct;
     }
 }

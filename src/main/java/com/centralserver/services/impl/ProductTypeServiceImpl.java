@@ -1,5 +1,7 @@
 package com.centralserver.services.impl;
 
+import com.centralserver.dto.ProductTypeDto;
+import com.centralserver.dto.converter.ProductTypeConverter;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
@@ -43,23 +45,23 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_TYPE_CREATE')")
-    public Long createNewDeviceModel(ProductType productType) throws DatabaseErrorException {
+    public void createNewDeviceModel(ProductTypeDto productTypeDto) throws DatabaseErrorException {
         try {
-            productTypeRepository.saveAndFlush(productType);
+            ProductType productType = new ProductType();
+            productTypeRepository.saveAndFlush(ProductTypeConverter.toProductType(productTypeDto, productType));
         } catch (PersistenceException e) {
             throw new DatabaseErrorException(DatabaseErrorException.PRODUCT_TYPE_NAME_NAME_TAKEN);
         }
-        return productType.getId();
     }
 
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_TYPE_UPDATE')")
-    public void updateProductType(ProductType productType) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException {
+    public void updateProductType(ProductTypeDto productTypeDto) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException {
         try {
-            ProductType oldProductType = productTypeRepository.findById(productType.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            ProductType oldProductType = productTypeRepository.findById(productTypeDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             productTypeRepository.detach(oldProductType);
-            productTypeRepository.saveAndFlush(productType);
+            productTypeRepository.saveAndFlush(ProductTypeConverter.toProductType(productTypeDto, oldProductType));
         } catch (ObjectOptimisticLockingFailureException e) {
             e.printStackTrace();
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);

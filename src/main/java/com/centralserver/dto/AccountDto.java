@@ -1,4 +1,4 @@
-package com.centralserver.dto.user;
+package com.centralserver.dto;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-public class UserEditDto implements Serializable {
+public class AccountDto implements Serializable {
 
     private Long id;
     private String username;
@@ -26,7 +26,5 @@ public class UserEditDto implements Serializable {
     private List<String> roles;
     private long versionUser;
     private long versionUserdata;
-    private long versionWarehouse;
-    private String officeName;
-    private String language;
+
 }

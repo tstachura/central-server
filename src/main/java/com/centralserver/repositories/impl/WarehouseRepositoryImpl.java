@@ -1,6 +1,6 @@
 package com.centralserver.repositories.impl;
 
-import com.centralserver.model.Warehouse;
+import com.centralserver.model.products.Warehouse;
 import com.centralserver.repositories.custom_interface.CustomWarehouseRepository;
 
 import javax.persistence.EntityManager;

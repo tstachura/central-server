@@ -1,6 +1,6 @@
 package com.centralserver.repositories;
 
-import com.centralserver.model.Warehouse;
+import com.centralserver.model.products.Warehouse;
 import com.centralserver.repositories.custom_interface.CustomWarehouseRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
