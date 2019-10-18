@@ -2,6 +2,7 @@ package com.centralserver.model.products;
 
 import com.centralserver.model.enums.ProductStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.internal.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.util.Calendar;
 @Getter
 @Setter
 @EnableAutoConfiguration
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "PRODUCT")
 public class Product implements Serializable {
 

@@ -1,6 +1,7 @@
 package com.centralserver.model.products;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,10 +13,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@EnableAutoConfiguration
-@Table(name = "PRODUCT_TYPE")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "PRODUCT_TYPE")
 public class ProductType implements Serializable {
 
     @Id

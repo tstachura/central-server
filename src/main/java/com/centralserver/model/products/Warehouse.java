@@ -2,6 +2,7 @@ package com.centralserver.model.products;
 
 
 import com.centralserver.model.products.Product;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 @Entity
 @EnableAutoConfiguration
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "WAREHOUSE")
 @Getter
 @Setter

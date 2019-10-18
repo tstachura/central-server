@@ -16,10 +16,10 @@ public class ProductTypeConverter {
     }
 
     public static ProductType toProductType(ProductTypeDto productTypeDto, ProductType oldProductType) {
-        oldProductType.setCost(oldProductType.getCost());
-        oldProductType.setManufacture(oldProductType.getManufacture());
-        oldProductType.setName(oldProductType.getName());
-        oldProductType.setVersion(oldProductType.getVersion());
+        oldProductType.setCost(productTypeDto.getCost());
+        oldProductType.setManufacture(productTypeDto.getManufacture());
+        oldProductType.setName(productTypeDto.getName());
+        oldProductType.setVersion(productTypeDto.getVersion());
         return oldProductType;
     }
 

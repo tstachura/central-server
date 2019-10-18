@@ -1,6 +1,7 @@
 package com.centralserver.model.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 
 @Entity
 @EnableAutoConfiguration
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 @Table(name = "USER_")
 @Getter
 @Setter

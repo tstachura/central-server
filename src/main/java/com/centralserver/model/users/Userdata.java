@@ -1,5 +1,6 @@
 package com.centralserver.model.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.internal.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 
 @Entity
 @EnableAutoConfiguration
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "USERDATA")
 @Getter
 @Setter
