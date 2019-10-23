@@ -1,9 +1,8 @@
 package com.centralserver.model.products;
 
 
-import com.centralserver.model.products.Product;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -38,7 +37,7 @@ public class Warehouse implements Serializable {
     private boolean deleted;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "warehouse", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Product> devices = new HashSet<>();
 
 }

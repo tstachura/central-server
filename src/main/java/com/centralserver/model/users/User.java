@@ -14,12 +14,11 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Entity
-@EnableAutoConfiguration
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
-@Table(name = "USER_")
 @Getter
 @Setter
+@Table(name = "USER_")
+@EnableAutoConfiguration
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EqualsAndHashCode(of = "id")
 public class User implements UserDetails, Serializable {
     @Id

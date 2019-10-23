@@ -1,8 +1,7 @@
 package com.centralserver.model.products;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,13 +15,12 @@ import java.util.Set;
 @Getter
 @Setter
 @EnableAutoConfiguration
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "PRODUCT_TYPE")
 public class ProductType implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "ProductModelGen", sequenceName = "product_model_id_seq",initialValue = 3,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "ProductModelGen")
+    @SequenceGenerator(name = "ProductModelGen", sequenceName = "product_model_id_seq", initialValue = 3, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ProductModelGen")
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id = null;
 
@@ -30,10 +28,10 @@ public class ProductType implements Serializable {
     @Column(name = "VERSION")
     private long version;
 
-    @Column(name = "NAME", nullable = false,unique = true)
+    @Column(name = "NAME", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "MANUFACTURE" ,nullable = false)
+    @Column(name = "MANUFACTURE", nullable = false)
     private String manufacture;
 
     @Column(name = "COST", nullable = false)
@@ -43,6 +41,6 @@ public class ProductType implements Serializable {
     private boolean deleted;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productType", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Product> products = new HashSet<>();
 }

@@ -32,4 +32,12 @@ public interface ProductService {
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_DELETE')")
     void deleteProductById(Long id) throws EntityNotInDatabaseException;
+
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('PRODUCT_READ')")
+    Product getProduct(Long id) throws EntityNotInDatabaseException;
+
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('PRODUCT_READ')")
+    Product getProductBySerialNumber(String serialNumber) throws EntityNotInDatabaseException;
 }

@@ -23,6 +23,21 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    Product getBySerialNumber(@PathVariable Long id) throws SystemBaseException {
+        return productService.getProduct(id);
+    }
+
+    @RequestMapping(value = "/serial-number/{serialNumber}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public @ResponseBody
+    Product getBySerialNumber(@PathVariable String serialNumber) throws SystemBaseException {
+        return productService.getProductBySerialNumber(serialNumber);
+    }
+
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody

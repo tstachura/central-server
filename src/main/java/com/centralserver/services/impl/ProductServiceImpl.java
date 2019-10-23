@@ -5,12 +5,11 @@ import com.centralserver.dto.converter.ProductConverter;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
-import com.centralserver.model.products.Warehouse;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
+import com.centralserver.model.products.Warehouse;
 import com.centralserver.repositories.ProductRepository;
 import com.centralserver.repositories.ProductTypeRepository;
-import com.centralserver.repositories.UserRepository;
 import com.centralserver.repositories.WarehouseRepository;
 import com.centralserver.services.ProductService;
 import com.google.common.collect.Lists;
@@ -95,11 +94,21 @@ public class ProductServiceImpl implements ProductService {
         productRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 
-
+    @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_READ')")
     public Product getProduct(Long id) throws EntityNotInDatabaseException {
         Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        Hibernate.initialize(product.getWarehouse());
+        Hibernate.initialize(product.getProductType());
+        return product.isDeleted() ? null : product;
+    }
+
+    @Override
+    @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
+    @PreAuthorize("hasAuthority('PRODUCT_READ')")
+    public Product getProductBySerialNumber(String serialNumber) throws EntityNotInDatabaseException {
+        Product product = productRepository.findBySerialNumber(serialNumber).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         return product.isDeleted() ? null : product;
     }
 }
