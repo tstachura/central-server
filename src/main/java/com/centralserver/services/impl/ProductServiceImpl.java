@@ -1,10 +1,15 @@
 package com.centralserver.services.impl;
 
+import javax.persistence.PersistenceException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.centralserver.dto.ProductDto;
 import com.centralserver.dto.converter.ProductConverter;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
+import com.centralserver.kafka.message.KafkaSyncMessage;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
 import com.centralserver.model.products.Warehouse;
@@ -15,15 +20,12 @@ import com.centralserver.services.ProductService;
 import com.google.common.collect.Lists;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.PersistenceException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -36,6 +38,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductTypeRepository productTypeRepository;
+
+    @Autowired
+    private KafkaTemplate<String, KafkaSyncMessage> kafkaTemplate;
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
@@ -91,7 +96,8 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_DELETE')")
     public void deleteProductById(Long id) throws EntityNotInDatabaseException {
-        productRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
+        Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        product.setDeleted(true);
     }
 
     @Override
