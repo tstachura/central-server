@@ -22,7 +22,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 @Configuration
 public class KafkaConsumerConfig {
 
-    /*@Value(value = "${kafka.bootstrapAddress}")
+    @Value(value = "${kafka.bootstrapAddress}")
     private String bootstrapAddress;
 
     @Value(value = "${kafka.groupId}")
@@ -41,12 +41,12 @@ public class KafkaConsumerConfig {
 
     @Bean
     public ConsumerFactory<String, Product> productConsumerFactory() {
-        return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(),
+        return new DefaultKafkaConsumerFactory<String, Product>(consumerConfigs(), new StringDeserializer(),
                                                  new JsonDeserializer<>(Product.class));
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, Product> productKafkaListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, Product> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, Product> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(productConsumerFactory());
@@ -56,6 +56,6 @@ public class KafkaConsumerConfig {
     @Bean
     public ProductReceiver productReceiver() {
         return new ProductReceiver();
-    }*/
+    }
 }
 

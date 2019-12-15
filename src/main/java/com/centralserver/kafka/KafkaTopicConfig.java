@@ -12,7 +12,7 @@ import org.springframework.kafka.core.KafkaAdmin;
 
 @Configuration
 public class KafkaTopicConfig {
-/*
+
     @Value(value = "${kafka.bootstrapAddress}")
     private String bootstrapAddress;
 
@@ -37,5 +37,5 @@ public class KafkaTopicConfig {
     @Bean
     public NewTopic unitTopic() {
         return new NewTopic(unitTopic, 1, (short) 1);
-    }*/
+    }
 }

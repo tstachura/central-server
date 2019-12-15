@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaSyncService {
 
-
- /*   @Autowired
+    @Autowired
     private ProductRepository productRepository;
 
     @Autowired
@@ -31,6 +30,6 @@ public class KafkaSyncService {
 
     public void syncUserdata(User user) {
         userRepository.saveAndFlush(user);
-    }*/
+    }
 
 }
