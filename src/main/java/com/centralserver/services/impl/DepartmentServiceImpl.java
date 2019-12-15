@@ -4,6 +4,7 @@ import com.centralserver.dto.DepartmentDto;
 import com.centralserver.dto.converter.DepartmentConverter;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
+import com.centralserver.kafka.producer.KafkaProducer;
 import com.centralserver.model.products.Department;
 import com.centralserver.repositories.DepartmentRepository;
 import com.centralserver.services.DepartmentService;

@@ -55,6 +55,6 @@ public class ProductTypeController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable UUID id) throws SystemBaseException {
-        productTypeService.deleteDeviceModelById(id);
+        productTypeService.deleteProductTypeById(id);
     }
 }

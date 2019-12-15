@@ -4,10 +4,11 @@ import com.centralserver.dto.PasswordInfoDto;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
 import com.centralserver.exception.ServiceException;
+import com.centralserver.kafka.producer.KafkaProducer;
 import com.centralserver.model.users.User;
 import com.centralserver.model.users.UserRole;
-import com.centralserver.repositories.UserRepository;
 import com.centralserver.repositories.DepartmentRepository;
+import com.centralserver.repositories.UserRepository;
 import com.centralserver.services.UserService;
 import com.google.common.collect.Lists;
 import org.hibernate.Hibernate;
@@ -31,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     DepartmentRepository departmentRepository;
+
+    @Autowired
+    KafkaProducer kafkaProducer;
 
     @Qualifier("userPasswordEncoder")
     @Autowired
@@ -66,7 +70,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @PreAuthorize("hasAuthority('USER_DELETE')")
     public void deleteUser(String username) throws EntityNotInDatabaseException {
-        userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setEnabled(false);
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        user.setEnabled(false);
+        kafkaProducer.send(user);
     }
 
     @Override
@@ -87,6 +93,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(passwordInfoForAdmin.getNewPassword()));
             user.setVersion(passwordInfoForAdmin.getUserVersion());
             userRepository.saveAndFlush(user);
+            kafkaProducer.send(user);
         } catch (StaleObjectStateException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }
@@ -115,7 +122,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(passwordInfoDto.getNewPassword()));
             user.setVersion(passwordInfoDto.getUserVersion());
             userRepository.saveAndFlush(user);
-
+            kafkaProducer.send(user);
         } else {
             throw new ServiceException(ServiceException.SAME_PASSWORD);
         }

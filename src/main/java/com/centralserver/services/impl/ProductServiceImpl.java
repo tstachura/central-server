@@ -5,12 +5,13 @@ import com.centralserver.dto.converter.ProductConverter;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
+import com.centralserver.kafka.producer.KafkaProducer;
+import com.centralserver.model.products.Department;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
-import com.centralserver.model.products.Department;
+import com.centralserver.repositories.DepartmentRepository;
 import com.centralserver.repositories.ProductRepository;
 import com.centralserver.repositories.ProductTypeRepository;
-import com.centralserver.repositories.DepartmentRepository;
 import com.centralserver.services.ProductService;
 import com.google.common.collect.Lists;
 import org.hibernate.Hibernate;
@@ -38,6 +39,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductTypeRepository productTypeRepository;
 
+    @Autowired
+    private KafkaProducer kafkaProducer;
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
@@ -67,6 +70,7 @@ public class ProductServiceImpl implements ProductService {
             Department department = departmentRepository.getOne(productDto.getWarehouseId());
             ProductType productType = productTypeRepository.getOne(productDto.getProductTypeId());
             productRepository.saveAndFlush(ProductConverter.toProduct(productDto, product, department, productType));
+            kafkaProducer.send(product);
         } catch (PersistenceException e) {
             throw new DatabaseErrorException(DatabaseErrorException.SERIAL_NUMBER_NAME_TAKEN);
         }
@@ -81,7 +85,9 @@ public class ProductServiceImpl implements ProductService {
             productRepository.detach(oldProduct);
             Department department = departmentRepository.getOne(product.getWarehouseId());
             ProductType productType = productTypeRepository.getOne(product.getProductTypeId());
-            productRepository.saveAndFlush(ProductConverter.toProduct(product, oldProduct, department, productType));
+            Product updatedProduct = ProductConverter.toProduct(product, oldProduct, department, productType);
+            productRepository.saveAndFlush(updatedProduct);
+            kafkaProducer.send(updatedProduct);
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         } catch (PersistenceException e) {
@@ -95,6 +101,7 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProductById(UUID id) throws EntityNotInDatabaseException {
         Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         product.setDeleted(true);
+        kafkaProducer.send(product);
     }
 
     @Override

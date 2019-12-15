@@ -5,6 +5,7 @@ import com.centralserver.dto.converter.ProductTypeConverter;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
+import com.centralserver.kafka.producer.KafkaProducer;
 import com.centralserver.model.products.ProductType;
 import com.centralserver.repositories.ProductTypeRepository;
 import com.centralserver.services.ProductTypeService;
@@ -26,6 +27,9 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Autowired
     private ProductTypeRepository productTypeRepository;
+
+    @Autowired
+    private KafkaProducer kafkaProducer;
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
@@ -50,6 +54,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         try {
             ProductType productType = new ProductType();
             productTypeRepository.saveAndFlush(ProductTypeConverter.toProductType(productTypeDto, productType));
+            kafkaProducer.send(productType);
         } catch (PersistenceException e) {
             throw new DatabaseErrorException(DatabaseErrorException.PRODUCT_TYPE_NAME_NAME_TAKEN);
         }
@@ -62,7 +67,9 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         try {
             ProductType oldProductType = productTypeRepository.findById(productTypeDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             productTypeRepository.detach(oldProductType);
-            productTypeRepository.saveAndFlush(ProductTypeConverter.toProductType(productTypeDto, oldProductType));
+            ProductType updatedProductType = ProductTypeConverter.toProductType(productTypeDto, oldProductType);
+            productTypeRepository.saveAndFlush(updatedProductType);
+            kafkaProducer.send(updatedProductType);
         } catch (ObjectOptimisticLockingFailureException e) {
             e.printStackTrace();
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
@@ -74,8 +81,10 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_TYPE_DELETE')")
-    public void deleteDeviceModelById(UUID id) throws EntityNotInDatabaseException {
-        productTypeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
+    public void deleteProductTypeById(UUID id) throws EntityNotInDatabaseException {
+        ProductType productType = productTypeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        productType.setDeleted(true);
+        kafkaProducer.send(productType);
     }
 
 }

@@ -5,6 +5,7 @@ import com.centralserver.dto.RegistrationDto;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
+import com.centralserver.kafka.producer.KafkaProducer;
 import com.centralserver.model.users.Address;
 import com.centralserver.model.users.User;
 import com.centralserver.model.users.UserRole;
@@ -41,6 +42,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private UserdataRepository userdataRepository;
+
+    @Autowired
+    private KafkaProducer kafkaProducer;
 
     @Override
     @Transactional
@@ -82,8 +86,10 @@ public class AccountServiceImpl implements AccountService {
 
         try {
             userdataRepository.save(userdata);
+            kafkaProducer.send(userdata);
             user.setUserdata(userdata);
             userRepository.save(user);
+            kafkaProducer.send(user);
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }
