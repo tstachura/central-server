@@ -11,7 +11,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 
 public class ProductReceiver {
 
-    private final String id = "productReceiver";
+   /* private final String id = "productReceiver";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductReceiver.class);
 
@@ -29,5 +29,5 @@ public class ProductReceiver {
     public void receive(Product product) {
         productRepository.saveAndFlush(product);
         LOGGER.info("Received c1");
-    }
+    }*/
 }

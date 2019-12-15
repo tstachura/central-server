@@ -1,6 +1,6 @@
 TRUNCATE TABLE PRODUCT CASCADE;
 TRUNCATE TABLE PRODUCT_TYPE CASCADE;
-TRUNCATE TABLE WAREHOUSE CASCADE;
+TRUNCATE TABLE DEPARTMENT CASCADE;
 TRUNCATE TABLE USERDATA CASCADE;
 TRUNCATE TABLE ADDRESS CASCADE;
 TRUNCATE TABLE AUTHORITY CASCADE;
@@ -10,119 +10,114 @@ TRUNCATE TABLE USER_ROLE CASCADE;
 TRUNCATE TABLE USERS_ROLES_AUTHORITIES CASCADE;
 
 --//---- ADDRESSES ----//--
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (1, '60', 'Kraków', false, null, 'Podole', 0);
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (2, '2', 'Warszawa', false, null, 'żelazna', 0);
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (3, '3', 'Łódź', false, '2', 'Piotrkowaska', 0);
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (4, '4', 'Łódź', false, null, 'Kościuszki', 0);
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (5, '5', 'Lublin', false, null, 'Lipowa', 0);
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (6, '6', 'Sopot', false, null, 'Grunwaldzka', 0);
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (7, '7', 'Szczecin', false, null, 'Kolumba', 0);
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (8, '1', 'Zakopane', false, null, 'Krupówki', 0);
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (9, '1', 'Zakopane', false, null, 'Krupówki', 0);
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (10, '1', 'Zakopane', false, null, 'Krupówki', 0);
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (11, '1', 'Zakopane', false, null, 'Krupówki', 0);
-INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES (12, '5', 'Kraków', false, '3', 'Dworcowa', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('ee7396e0-1f20-11ea-978f-2e728ce88125', '60', 'Kraków', false, null, 'Podole', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('f6095afc-1f20-11ea-978f-2e728ce88125', '2', 'Warszawa', false, null, 'żelazna', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('0059864e-1f21-11ea-978f-2e728ce88125', '3', 'Łódź', false, '2', 'Piotrkowaska', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('0c3da4a4-1f21-11ea-978f-2e728ce88125', '4', 'Łódź', false, null, 'Kościuszki', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('1152922e-1f21-11ea-a5e8-2e728ce88125', '5', 'Lublin', false, null, 'Lipowa', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('15e6067c-1f21-11ea-978f-2e728ce88125', '6', 'Sopot', false, null, 'Grunwaldzka', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('1b708a40-1f21-11ea-978f-2e728ce88125', '7', 'Szczecin', false, null, 'Kolumba', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('20d40a48-1f21-11ea-a5e8-2e728ce88125', '1', 'Zakopane', false, null, 'Krupówki', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('30c1de58-1f21-11ea-978f-2e728ce88125', '1', 'Zakopane', false, null, 'Krupówki', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('3501205a-1f21-11ea-a5e8-2e728ce88125', '1', 'Zakopane', false, null, 'Krupówki', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('3a2bbee6-1f21-11ea-978f-2e728ce88125', '1', 'Zakopane', false, null, 'Krupówki', 0);
+INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('3fa4b224-1f21-11ea-978f-2e728ce88125', '5', 'Kraków', false, '1', 'Dworcowa', 0);
 
 --//---- USERDATA ----//--
-INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES (4, '2019-01-13 02:28:56.848000', 'email4@email.com', 'John', null, 'William', 0, null, 8);
-INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES (1, '2011-03-12 12:00:00.000000', 'email1@email.com', 'Tomasz', null, 'Stachura', 0, null, 1);
-INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES (3, '2019-01-13 02:30:51.643000', 'email3@email.com', 'David', null, 'William', 0, null, 10);
-INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES (2, '2019-01-13 02:30:31.659000', 'email2@email.com', 'Robert', null, 'William', 0, null, 9);
-INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES (5, '2019-01-19 12:45:25.764000', 'email5@email.com', 'Kamil', 'Programista', 'Nowak', 0, null, 12);
+INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES ('65efc27a-1f21-11ea-978f-2e728ce88125', '2019-01-12 02:28:56.848000', 'email1@email.com', 'John', null, 'William', 0, null, 'ee7396e0-1f20-11ea-978f-2e728ce88125');
+INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES ('6a56949c-1f21-11ea-978f-2e728ce88125', '2011-02-12 12:00:00.000000', 'email2@email.com', 'Tomasz', null, 'Stachura', 0, null, 'f6095afc-1f20-11ea-978f-2e728ce88125');
+INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES ('6e227924-1f21-11ea-978f-2e728ce88125', '2019-01-12 02:20:51.642000', 'email3@email.com', 'David', null, 'William', 0, null, '0059864e-1f21-11ea-978f-2e728ce88125');
+INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES ('79815984-1f21-11ea-978f-2e728ce88125', '2019-01-12 02:20:21.659000', 'email4@email.com', 'Robert', null, 'William', 0, null, '0c3da4a4-1f21-11ea-978f-2e728ce88125');
+INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES ('821bb166-1f21-11ea-978f-2e728ce88125', '2019-01-19 12:45:25.764000', 'email5@email.com', 'Kamil', 'Programista', 'Nowak', 0, null, '1152922e-1f21-11ea-a5e8-2e728ce88125');
 
 --//---- AUTHORITIES ----//--
 
 ---- Products ----
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (1,TRUE, 'PRODUCT_READ');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (2,TRUE, 'PRODUCT_LIST_READ');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (3,TRUE, 'PRODUCT_LIST_FOR_WAREHOUSE_READ');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (4,TRUE, 'PRODUCT_CREATE');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (5,TRUE, 'PRODUCT_UPDATE');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (6,TRUE, 'PRODUCT_DELETE');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('9e73257e-1f21-11ea-978f-2e728ce88125',TRUE, 'PRODUCT_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('a5934aa0-1f21-11ea-a5e8-2e728ce88125',TRUE, 'PRODUCT_LIST_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('ac11997c-1f21-11ea-978f-2e728ce88125',TRUE, 'PRODUCT_LIST_FOR_DEPARTMENT_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('b3e56700-1f21-11ea-a5e8-2e728ce88125',TRUE, 'PRODUCT_CREATE');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('bc66fb28-1f21-11ea-978f-2e728ce88125',TRUE, 'PRODUCT_UPDATE');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('c4b76fce-1f21-11ea-978f-2e728ce88125',TRUE, 'PRODUCT_DELETE');
 
 ---- Product Types ----
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (7,TRUE, 'PRODUCT_TYPE_READ');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (8,TRUE, 'PRODUCT_TYPE_LIST_READ');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (9,TRUE, 'PRODUCT_TYPE_CREATE');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (10,TRUE, 'PRODUCT_TYPE_UPDATE');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (11,TRUE, 'PRODUCT_TYPE_DELETE');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('dc8fa59e-1f21-11ea-978f-2e728ce88125',TRUE, 'PRODUCT_TYPE_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('e3423bea-1f21-11ea-978f-2e728ce88125',TRUE, 'PRODUCT_TYPE_LIST_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('e924bfa6-1f21-11ea-a5e8-2e728ce88125',TRUE, 'PRODUCT_TYPE_CREATE');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('ef7c2434-1f21-11ea-978f-2e728ce88125',TRUE, 'PRODUCT_TYPE_UPDATE');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('f5da6e6c-1f21-11ea-978f-2e728ce88125',TRUE, 'PRODUCT_TYPE_DELETE');
 
----- Warehouse ----
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (12,TRUE, 'WAREHOUSE_READ');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (13,TRUE, 'WAREHOUSE_LIST_READ');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (14,TRUE, 'WAREHOUSE_CREATE');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (15,TRUE, 'WAREHOUSE_UPDATE');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (16,TRUE, 'WAREHOUSE_DELETE');
+---- Department ----
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('84e99766-1f24-11ea-978f-2e728ce88125',TRUE, 'DEPARTMENT_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('f0d0b46e-1f24-11ea-a5e8-2e728ce88125',TRUE, 'DEPARTMENT_LIST_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('fa59e56e-1f24-11ea-a32c-2e728ce88125',TRUE, 'DEPARTMENT_CREATE');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('08c46d72-1f25-11ea-978f-2e728ce88125',TRUE, 'DEPARTMENT_UPDATE');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('1195d15c-1f25-11ea-a5e8-2e728ce88125',TRUE, 'DEPARTMENT_DELETE');
 
 ---- User ----
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (17,TRUE, 'USER_DELETE');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (18,TRUE, 'ACCOUNT_UPDATE_ADMIN');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (19,TRUE, 'USER_READ');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (20,TRUE, 'USER_ROLES_READ');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (21,TRUE, 'PASSWORD_UPDATE');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (22,TRUE, 'PASSWORD_READ');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (23,TRUE, 'PASSWORD_ADMIN_UPDATE');
-INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES (24,TRUE, 'PASSWORD_ADMIN_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('1e015bf0-1f25-11ea-a5e8-2e728ce88125',TRUE, 'USER_DELETE');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('285b6528-1f25-11ea-978f-2e728ce88125',TRUE, 'ACCOUNT_UPDATE_ADMIN');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('4049814c-1f25-11ea-978f-2e728ce88125',TRUE, 'USER_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('488c9bf0-1f25-11ea-978f-2e728ce88125',TRUE, 'USER_ROLES_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('55667008-1f25-11ea-978f-2e728ce88125',TRUE, 'PASSWORD_UPDATE');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('5e0e2354-1f25-11ea-978f-2e728ce88125',TRUE, 'PASSWORD_READ');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('6d9162dc-1f25-11ea-a5e8-2e728ce88125',TRUE, 'PASSWORD_ADMIN_UPDATE');
+INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('7685c356-1f25-11ea-978f-2e728ce88125',TRUE, 'PASSWORD_ADMIN_READ');
 
 --//---- USER ----//--
-INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES (1, false, false, false, true, '$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l83Cd0jNsX6AJUitbgRXGzge4j035ha', 'admin', 0, 1);
-INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES (2, false, false, false, true, '$2a$08$uSVsWY3W1VPF/fKGHlwYN.ntllnUW6eYOTsRrPeO4VZ5d8dYJymFC', 'warehouseman', 0, 4);
-INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES (3, false, false, false, true, '$2a$08$KjqKtpwHqXLJWo2XEP5u6uYJ3gtkKPNMgKxAnlG9pJnbzl4QQWIQ6', 'user', 0, 5);
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', false, false, false, true, '$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l82Cd0jNsX6AJUitbgRXGzge4j025ha', 'admin', 0, '65efc27a-1f21-11ea-978f-2e728ce88125');
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES ('9325a2c2-1f22-11ea-978f-2e728ce88125', false, false, false, true, '$2a$08$uSVsWY2W1VPF/fKGHlwYN.ntllnUW6eYOTsRrPeO4VZ5d8dYJymFC', 'departmentman', 0, '6a56949c-1f21-11ea-978f-2e728ce88125');
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES ('87b1aa9e-1f27-11ea-978f-2e728ce88125', false, false, false, true, '$2a$08$KjqKtpwHqXLJWo2XEP5u6uYJ2gtkKPNMgKxAnlG9pJnbzl4QQWIQ6', 'user', 0, '6e227924-1f21-11ea-978f-2e728ce88125');
 
 --//---- USER ROLE ----//--
-INSERT INTO USER_ROLE(ID,NAME,ACTIVE) VALUES (1,'ADMIN',TRUE );
-INSERT INTO USER_ROLE(ID,NAME,ACTIVE) VALUES (2,'USER',TRUE );
-INSERT INTO USER_ROLE(ID,NAME,ACTIVE) VALUES (3,'WAREHOUSEMAN',TRUE );
+INSERT INTO USER_ROLE(ID,NAME,ACTIVE) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125','ADMIN',TRUE );
+INSERT INTO USER_ROLE(ID,NAME,ACTIVE) VALUES ('9325a2c2-1f22-11ea-978f-2e728ce88125','USER',TRUE );
 
 --//---- USERS ROLES ----//--
-INSERT INTO public.users_roles (user_id, user_role_id) VALUES (1, 1);
-INSERT INTO public.users_roles (user_id, user_role_id) VALUES (1, 2);
-INSERT INTO public.users_roles (user_id, user_role_id) VALUES (1, 3);
-INSERT INTO public.users_roles (user_id, user_role_id) VALUES (2, 2);
-INSERT INTO public.users_roles (user_id, user_role_id) VALUES (2, 3);
-INSERT INTO public.users_roles (user_id, user_role_id) VALUES (3, 2);
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', '75e20624-1f22-11ea-a32c-2e728ce88125');
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', '9325a2c2-1f22-11ea-978f-2e728ce88125');
+INSERT INTO public.users_roles (user_id, user_role_id) VALUES ('9325a2c2-1f22-11ea-978f-2e728ce88125', '9325a2c2-1f22-11ea-978f-2e728ce88125');
+
 
 --//---- USER ROLES AUTHORITIES ----//--
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 17);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 18);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 23);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (1, 24);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', '9e73257e-1f21-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'a5934aa0-1f21-11ea-a5e8-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'ac11997c-1f21-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'b3e56700-1f21-11ea-a5e8-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'bc66fb28-1f21-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'c4b76fce-1f21-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'dc8fa59e-1f21-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'e3423bea-1f21-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'e924bfa6-1f21-11ea-a5e8-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'ef7c2434-1f21-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'f5da6e6c-1f21-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', '84e99766-1f24-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'f0d0b46e-1f24-11ea-a5e8-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', 'fa59e56e-1f24-11ea-a32c-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', '08c46d72-1f25-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', '1195d15c-1f25-11ea-a5e8-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', '1e015bf0-1f25-11ea-a5e8-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', '285b6528-1f25-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', '6d9162dc-1f25-11ea-a5e8-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', '7685c356-1f25-11ea-978f-2e728ce88125');
 
 ---- USER ----
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 19);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 20);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 21);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (2, 22);
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('9325a2c2-1f22-11ea-978f-2e728ce88125','4049814c-1f25-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('9325a2c2-1f22-11ea-978f-2e728ce88125', '488c9bf0-1f25-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('9325a2c2-1f22-11ea-978f-2e728ce88125', '55667008-1f25-11ea-978f-2e728ce88125');
+INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('9325a2c2-1f22-11ea-978f-2e728ce88125', '5e0e2354-1f25-11ea-978f-2e728ce88125');
 
----- WAREHOUSEMAN ----
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 1);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 2);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 3);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 4);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 5);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 6);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 7);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 8);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 9);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 10);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 11);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 12);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 13);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 14);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 15);
-INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES (3, 16);
+INSERT INTO public.department (id, deleted, name, version) VALUES ('5cbfeed2-1f26-11ea-978f-2e728ce88125', false, 'Łódź | Office department', 0);
 
-INSERT INTO public.warehouse (id, deleted, name, version) VALUES (1, false, 'Łódź | Office warehouse', 0);
+INSERT INTO public.product_type (id, cost, deleted, manufacture, name, version) VALUES ('dc183220-1f26-11ea-978f-2e728ce88125', 279, false, 'ASUS', 'Mysz Razer Naga Trinity (RZ01-02410100-R2M1)', 0);
+INSERT INTO public.product_type (id, cost, deleted, manufacture, name, version) VALUES ('e9942b16-1f26-11ea-978f-2e728ce88125', 2099, false, 'Lenovo', 'Laptop Lenovo V110-15IKB (80TH002CPB)', 0);
 
-INSERT INTO public.product_type (id, cost, deleted, manufacture, name, version) VALUES (2, 379, false, 'ASUS', 'Mysz Razer Naga Trinity (RZ01-02410100-R3M1)', 0);
-INSERT INTO public.product_type (id, cost, deleted, manufacture, name, version) VALUES (1, 2099, false, 'Lenovo', 'Laptop Lenovo V110-15IKB (80TH003CPB)', 0);
-
-INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, warehouse_id, product_type_id) VALUES (2, '2011-03-12 12:00:00.000000', false, '2011-03-12 12:00:00.000000', 'XYZ123LPZ', 'available', 0, 1,1);
-INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, warehouse_id, product_type_id) VALUES (1, '2011-03-12 12:00:00.000000', false, '2018-03-12 12:00:00.000000', 'XYZ153LPZ', 'available', 0, 1,1);
-INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, warehouse_id, product_type_id) VALUES (3, '2011-03-12 12:00:00.000000', false, '2011-03-12 12:30:00.000000', 'XYZ123JPZ', 'available', 0, 1,1);
-INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, warehouse_id, product_type_id) VALUES (4, '2011-03-12 12:00:00.000000', false, '2011-03-12 12:00:00.000000', 'XYZ1H3LPZ', 'available', 0, 1,1);
-INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, warehouse_id, product_type_id) VALUES (5, '2011-03-12 12:00:00.000000', false, '2011-03-12 12:00:00.000000', 'XY345GLPZ', 'available', 0, 1,1);
-INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, warehouse_id, product_type_id) VALUES (6, '2011-03-12 12:00:00.000000', false, '2011-03-12 12:30:00.000000', 'XYZ12DDPZ', 'available', 0, 1,2);
-INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, warehouse_id, product_type_id) VALUES (7, '2011-03-12 12:00:00.000000', false, '2018-03-12 12:00:00.000000', 'XYZ189LPZ', 'available', 0, 1,2);
-INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, warehouse_id, product_type_id) VALUES (8, '2011-03-12 12:00:00.000000', false, '2018-03-12 12:00:00.000000', 'XYZ349LPZ', 'available', 0, 1,2);
-INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, warehouse_id, product_type_id) VALUES (9, '2011-03-12 12:00:00.000000', false, '2018-03-12 12:00:00.000000', 'XYZ189LRT', 'available', 0, 1,2);
+INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, department_id, product_type_id) VALUES ('a176ee4e-1f27-11ea-978f-2e728ce88125', '2011-02-12 12:00:00.000000', false, '2011-02-12 12:00:00.000000', 'XYZ122LPZ', 'available', 0, '5cbfeed2-1f26-11ea-978f-2e728ce88125','dc183220-1f26-11ea-978f-2e728ce88125');
+INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, department_id, product_type_id) VALUES ('a7c95764-1f27-11ea-978f-2e728ce88125', '2011-02-12 12:00:00.000000', false, '2018-02-12 12:00:00.000000', 'XYZ152LPZ', 'available', 0, '5cbfeed2-1f26-11ea-978f-2e728ce88125','dc183220-1f26-11ea-978f-2e728ce88125');
+INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, department_id, product_type_id) VALUES ('00ec35b4-1f28-11ea-978f-2e728ce88125', '2011-02-12 12:00:00.000000', false, '2011-02-12 12:20:00.000000', 'XYZ122JPZ', 'available', 0, '5cbfeed2-1f26-11ea-978f-2e728ce88125','dc183220-1f26-11ea-978f-2e728ce88125');
+INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, department_id, product_type_id) VALUES ('b77af46a-1f27-11ea-a5e8-2e728ce88125', '2011-02-12 12:00:00.000000', false, '2011-02-12 12:00:00.000000', 'XYZ1H2LPZ', 'available', 0, '5cbfeed2-1f26-11ea-978f-2e728ce88125','dc183220-1f26-11ea-978f-2e728ce88125');
+INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, department_id, product_type_id) VALUES ('bb9e7bd4-1f27-11ea-978f-2e728ce88125', '2011-02-12 12:00:00.000000', false, '2011-02-12 12:00:00.000000', 'XY245GLPZ', 'available', 0, '5cbfeed2-1f26-11ea-978f-2e728ce88125','dc183220-1f26-11ea-978f-2e728ce88125');
+INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, department_id, product_type_id) VALUES ('c04105e4-1f27-11ea-978f-2e728ce88125', '2011-02-12 12:00:00.000000', false, '2011-02-12 12:20:00.000000', 'XYZ12DDPZ', 'available', 0, '5cbfeed2-1f26-11ea-978f-2e728ce88125','e9942b16-1f26-11ea-978f-2e728ce88125');
+INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, department_id, product_type_id) VALUES ('c4c8d510-1f27-11ea-978f-2e728ce88125', '2011-02-12 12:00:00.000000', false, '2018-02-12 12:00:00.000000', 'XYZ189LPZ', 'available', 0, '5cbfeed2-1f26-11ea-978f-2e728ce88125','e9942b16-1f26-11ea-978f-2e728ce88125');
+INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, department_id, product_type_id) VALUES ('c9dda076-1f27-11ea-978f-2e728ce88125', '2011-02-12 12:00:00.000000', false, '2018-02-12 12:00:00.000000', 'XYZ249LPZ', 'available', 0, '5cbfeed2-1f26-11ea-978f-2e728ce88125','e9942b16-1f26-11ea-978f-2e728ce88125');
+INSERT INTO public.product (id, create_date, deleted, last_update, serial_number, status, version, department_id, product_type_id) VALUES ('cec814ae-1f27-11ea-978f-2e728ce88125', '2011-02-12 12:00:00.000000', false, '2018-02-12 12:00:00.000000', 'XYZ189LRT', 'available', 0, '5cbfeed2-1f26-11ea-978f-2e728ce88125','e9942b16-1f26-11ea-978f-2e728ce88125');

@@ -7,7 +7,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 public class ProductProducer {
 
-    @Autowired
+   /* @Autowired
     private KafkaTemplate<String, Product> productTemplate;
 
     @Value(value = "${kafka.topic.central}")
@@ -15,5 +15,5 @@ public class ProductProducer {
 
     public void send(Product product) {
         productTemplate.send(unitTopic, product);
-    }
+    }*/
 }

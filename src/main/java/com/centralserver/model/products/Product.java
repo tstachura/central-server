@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.internal.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -19,10 +22,11 @@ import java.util.Calendar;
 public class Product implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "ProductGen", sequenceName = "device_id_seq", initialValue = 10, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ProductGen")
-    @Column(name = "ID", updatable = false, nullable = false)
-    private Long id = null;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
+    @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id = null;
 
     @Version
     @Column(name = "VERSION")
@@ -56,12 +60,12 @@ public class Product implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JsonManagedReference
-    private Warehouse warehouse;
+    private Department department;
 
     public Product() {
     }
 
-    public Product(Long id, long version) {
+    public Product(UUID id, long version) {
         this.id = id;
         this.version = version;
     }

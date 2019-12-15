@@ -17,7 +17,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 @Configuration
 public class KafkaProducerConfig {
 
-    @Value(value = "${kafka.bootstrapAddress}")
+  /*  @Value(value = "${kafka.bootstrapAddress}")
     private String bootstrapAddress;
 
     @Bean
@@ -42,5 +42,5 @@ public class KafkaProducerConfig {
     @Bean
     public ProductProducer productProducer() {
         return new ProductProducer();
-    }
+    }*/
 }

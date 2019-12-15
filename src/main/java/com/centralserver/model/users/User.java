@@ -5,12 +5,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity
@@ -21,11 +24,13 @@ import java.util.stream.Collectors;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EqualsAndHashCode(of = "id")
 public class User implements UserDetails, Serializable {
+
     @Id
-    @SequenceGenerator(name = "UserGen", sequenceName = "user_id_seq", initialValue = 6, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserGen")
-    @Column(name = "ID", updatable = false, nullable = false)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
+    @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id = null;
 
     @Version
     @Column(name = "VERSION")

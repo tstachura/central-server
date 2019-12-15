@@ -8,9 +8,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>, CustomUserRepository {
+public interface UserRepository extends JpaRepository<User, UUID>, CustomUserRepository {
 
     @Query("SELECT DISTINCT user FROM User user " +
             "INNER JOIN FETCH user.userRoles AS roles " +

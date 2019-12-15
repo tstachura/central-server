@@ -3,10 +3,13 @@ package com.centralserver.model.users;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @EnableAutoConfiguration
@@ -17,10 +20,11 @@ import java.io.Serializable;
 public class Address implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "AddressGen", sequenceName = "address_id_seq",initialValue = 13,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "AddressGen")
-    @Column(name = "ID", updatable = false, nullable = false)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
+    @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id = null;
 
     @Version
     @Column(name = "VERSION")

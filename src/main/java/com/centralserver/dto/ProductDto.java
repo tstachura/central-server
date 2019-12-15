@@ -3,7 +3,7 @@ package com.centralserver.dto;
 import com.centralserver.model.enums.ProductStatus;
 import lombok.*;
 
-import java.util.Calendar;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -11,12 +11,12 @@ import java.util.Calendar;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class ProductDto {
 
-    private Long id = null;
+    private UUID id = null;
     private long version;
     private String serialNumber;
     private ProductStatus status;
-    private Long productTypeId;
+    private UUID productTypeId;
     private String lastUpdate;
     private String createDate;
-    private Long warehouseId;
+    private UUID warehouseId;
 }

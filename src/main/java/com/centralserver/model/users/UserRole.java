@@ -4,11 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.UUID;
 
 @Entity
 @EnableAutoConfiguration
@@ -19,10 +22,11 @@ import java.util.Collection;
 public class UserRole implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "UserRoleGen", sequenceName = "user_role_id_seq", initialValue = 6, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserRoleGen")
-    @Column(name = "ID", updatable = false, nullable = false)
-    private Long id = null;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
+    @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id = null;
 
     @Column(name = "NAME", nullable = false, unique = true)
     private String name;

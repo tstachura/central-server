@@ -11,12 +11,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ProductTypeService {
 
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_TYPE_READ')")
-    ProductType getProductTypeById(Long id) throws EntityNotInDatabaseException;
+    ProductType getProductTypeById(UUID id) throws EntityNotInDatabaseException;
 
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_TYPE_LIST_READ')")
@@ -32,5 +33,5 @@ public interface ProductTypeService {
 
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_TYPE_DELETE')")
-    void deleteDeviceModelById(Long id) throws EntityNotInDatabaseException;
+    void deleteDeviceModelById(UUID id) throws EntityNotInDatabaseException;
 }

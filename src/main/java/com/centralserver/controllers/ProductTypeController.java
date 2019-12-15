@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(maxAge = 3600)
@@ -27,7 +28,7 @@ public class ProductTypeController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    ProductType get(@PathVariable Long id) throws SystemBaseException {
+    ProductType get(@PathVariable UUID id) throws SystemBaseException {
         return productTypeService.getProductTypeById(id);
     }
 
@@ -53,7 +54,7 @@ public class ProductTypeController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws SystemBaseException {
+    public void delete(@PathVariable UUID id) throws SystemBaseException {
         productTypeService.deleteDeviceModelById(id);
     }
 }

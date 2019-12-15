@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(maxAge = 3600)
@@ -26,7 +27,7 @@ public class ProductController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Product getBySerialNumber(@PathVariable Long id) throws SystemBaseException {
+    Product getBySerialNumber(@PathVariable UUID id) throws SystemBaseException {
         return productService.getProduct(id);
     }
 
@@ -67,7 +68,7 @@ public class ProductController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws SystemBaseException {
+    public void delete(@PathVariable UUID id) throws SystemBaseException {
         productService.deleteProductById(id);
     }
 }

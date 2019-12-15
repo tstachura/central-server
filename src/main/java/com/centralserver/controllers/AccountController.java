@@ -25,7 +25,7 @@ public class AccountController {
     @RequestMapping(value = "admin/edit", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> saveAccountAfterEdit(@RequestBody AccountDto data) throws SystemBaseException {
-        accountService.updateAccountbyAdmin(data);
+        accountService.updateAccountByAdmin(data);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

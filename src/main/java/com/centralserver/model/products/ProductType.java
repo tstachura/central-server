@@ -4,12 +4,16 @@ package com.centralserver.model.products;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -19,10 +23,11 @@ import java.util.Set;
 public class ProductType implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "ProductModelGen", sequenceName = "product_model_id_seq", initialValue = 3, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ProductModelGen")
-    @Column(name = "ID", updatable = false, nullable = false)
-    private Long id = null;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
+    @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id = null;
 
     @Version
     @Column(name = "VERSION")

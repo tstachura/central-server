@@ -1,9 +1,9 @@
 package com.centralserver.controllers;
 
-import com.centralserver.dto.WarehouseDto;
+import com.centralserver.dto.DepartmentDto;
 import com.centralserver.exception.base.SystemBaseException;
-import com.centralserver.model.products.Warehouse;
-import com.centralserver.services.WarehouseService;
+import com.centralserver.model.products.Department;
+import com.centralserver.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(maxAge = 3600)
@@ -21,38 +22,38 @@ import java.util.List;
 public class WarehouseController {
 
     @Autowired
-    private WarehouseService warehouseService;
+    private DepartmentService departmentService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Warehouse getWarehouseToView(@PathVariable Long id) throws SystemBaseException {
-        return warehouseService.getWarehouse(id);
+    Department getWarehouseToView(@PathVariable UUID id) throws SystemBaseException {
+        return departmentService.getWarehouse(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<Warehouse> getAll() {
-        return warehouseService.getAll();
+    List<Department> getAll() {
+        return departmentService.getAll();
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody WarehouseDto warehouseDto) throws SystemBaseException {
-        warehouseService.createWarehouse(warehouseDto);
+    public ResponseEntity<?> create(@RequestBody DepartmentDto warehouseDto) throws SystemBaseException {
+        departmentService.createWarehouse(warehouseDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody WarehouseDto warehouseDto) throws SystemBaseException {
-        warehouseService.updateWarehouse(warehouseDto);
+    public void update(@RequestBody DepartmentDto warehouseDto) throws SystemBaseException {
+        departmentService.updateWarehouse(warehouseDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Long id) throws SystemBaseException {
-        warehouseService.deleteWarehouseById(id);
+    public void delete(@PathVariable UUID id) throws SystemBaseException {
+        departmentService.deleteWarehouseById(id);
     }
 }

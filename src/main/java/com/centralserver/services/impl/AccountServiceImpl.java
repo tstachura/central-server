@@ -1,7 +1,7 @@
 package com.centralserver.services.impl;
 
-import com.centralserver.dto.RegistrationDto;
 import com.centralserver.dto.AccountDto;
+import com.centralserver.dto.RegistrationDto;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
@@ -45,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('ACCOUNT_UPDATE_ADMIN')")
-    public void updateAccountbyAdmin(AccountDto accountDto) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException {
+    public void updateAccountByAdmin(AccountDto accountDto) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException {
         User user = userRepository.findById(accountDto.getId()).orElseThrow((() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
         if (userRepository.findByUsername(accountDto.getUsername()).isPresent() && !user.getUsername().equals(accountDto.getUsername())) {
             throw new DatabaseErrorException(DatabaseErrorException.USERNAME_TAKEN);

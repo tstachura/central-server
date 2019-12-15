@@ -2,9 +2,9 @@ package com.centralserver.dto.converter;
 
 import com.centralserver.dto.ProductDto;
 import com.centralserver.model.enums.ProductStatus;
+import com.centralserver.model.products.Department;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
-import com.centralserver.model.products.Warehouse;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,14 +19,14 @@ public class ProductConverter {
                 .productTypeId(product.getProductType().getId())
                 .lastUpdate(formatter.format(product.getLastUpdate().getTime()))
                 .status(product.getStatus())
-                .warehouseId(product.getWarehouse().getId())
+                .warehouseId(product.getDepartment().getId())
                 .build();
     }
 
 
-    public static Product toProduct(ProductDto productDto,Product oldProduct, Warehouse warehouse, ProductType productType) {
+    public static Product toProduct(ProductDto productDto, Product oldProduct, Department department, ProductType productType) {
         oldProduct.setStatus(ProductStatus.available);
-        oldProduct.setWarehouse(warehouse);
+        oldProduct.setDepartment(department);
         oldProduct.setDeleted(false);
         oldProduct.setSerialNumber(productDto.getSerialNumber());
         oldProduct.setLastUpdate(Calendar.getInstance());

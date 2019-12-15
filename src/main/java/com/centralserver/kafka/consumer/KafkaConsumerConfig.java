@@ -22,7 +22,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 @Configuration
 public class KafkaConsumerConfig {
 
-    @Value(value = "${kafka.bootstrapAddress}")
+    /*@Value(value = "${kafka.bootstrapAddress}")
     private String bootstrapAddress;
 
     @Value(value = "${kafka.groupId}")
@@ -56,6 +56,6 @@ public class KafkaConsumerConfig {
     @Bean
     public ProductReceiver productReceiver() {
         return new ProductReceiver();
-    }
+    }*/
 }
 

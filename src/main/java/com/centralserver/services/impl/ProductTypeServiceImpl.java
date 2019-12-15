@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +30,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_TYPE_READ')")
-    public ProductType getProductTypeById(Long id) throws EntityNotInDatabaseException {
+    public ProductType getProductTypeById(UUID id) throws EntityNotInDatabaseException {
         ProductType productType = productTypeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         return productType.isDeleted() ? null : productType;
     }
@@ -73,7 +74,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_TYPE_DELETE')")
-    public void deleteDeviceModelById(Long id) throws EntityNotInDatabaseException {
+    public void deleteDeviceModelById(UUID id) throws EntityNotInDatabaseException {
         productTypeRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }
 

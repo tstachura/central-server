@@ -7,7 +7,7 @@ import com.centralserver.exception.ServiceException;
 import com.centralserver.model.users.User;
 import com.centralserver.model.users.UserRole;
 import com.centralserver.repositories.UserRepository;
-import com.centralserver.repositories.WarehouseRepository;
+import com.centralserver.repositories.DepartmentRepository;
 import com.centralserver.services.UserService;
 import com.google.common.collect.Lists;
 import org.hibernate.Hibernate;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Autowired
-    WarehouseRepository warehouseRepository;
+    DepartmentRepository departmentRepository;
 
     @Qualifier("userPasswordEncoder")
     @Autowired
