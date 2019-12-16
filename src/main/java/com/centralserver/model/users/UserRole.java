@@ -14,11 +14,11 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Entity
-@EnableAutoConfiguration
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "USER_ROLE")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "USER_ROLE")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class UserRole implements Serializable {
 
     @Id
@@ -34,9 +34,10 @@ public class UserRole implements Serializable {
     @Column(name = "ACTIVE", nullable = false)
     private Boolean active;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "USERS_ROLES_AUTHORITIES", joinColumns = @JoinColumn(name = "USER_ROLE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID"))
     @OrderBy
     @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "USERS_ROLES_AUTHORITIES", joinColumns = @JoinColumn(name = "USER_ROLE_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID"))
     private Collection<Authority> authorities;
 }

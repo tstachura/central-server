@@ -81,18 +81,6 @@ public class KafkaProducerConfig {
         return new KafkaTemplate<>(userdataProducerFactory());
     }
 
-    //Address
-
-    @Bean
-    public ProducerFactory<String, Address> addressProducerFactory() {
-        return new DefaultKafkaProducerFactory<>(producerConfigs());
-    }
-
-    @Bean
-    public KafkaTemplate<String, Address> addressKafkaTemplate() {
-        return new KafkaTemplate<>(addressProducerFactory());
-    }
-
     @Bean
     public KafkaProducer kafkaProducer() {
         return new KafkaProducer();

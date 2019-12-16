@@ -19,7 +19,7 @@ public class ProductConverter {
                 .productTypeId(product.getProductType().getId())
                 .lastUpdate(formatter.format(product.getLastUpdate().getTime()))
                 .status(product.getStatus())
-                .warehouseId(product.getDepartment().getId())
+                .departmentId(product.getDepartment().getId())
                 .build();
     }
 

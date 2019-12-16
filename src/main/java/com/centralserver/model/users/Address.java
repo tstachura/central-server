@@ -12,11 +12,11 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-@EnableAutoConfiguration
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "ADDRESS")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "ADDRESS")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Address implements Serializable {
 
     @Id

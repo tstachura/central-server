@@ -19,7 +19,7 @@ public class KafkaTopicConfig {
     @Value(value = "${kafka.topic.central}")
     private String centralTopic;
 
-    @Value(value = "${kafka.topic.central}")
+    @Value(value = "${kafka.topic.unit}")
     private String unitTopic;
 
     @Bean

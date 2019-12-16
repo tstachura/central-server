@@ -18,5 +18,5 @@ public class ProductDto {
     private UUID productTypeId;
     private String lastUpdate;
     private String createDate;
-    private UUID warehouseId;
+    private UUID departmentId;
 }

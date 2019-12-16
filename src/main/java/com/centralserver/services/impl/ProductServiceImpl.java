@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     public void createNewProduct(ProductDto productDto) throws DatabaseErrorException {
         try {
             Product product = new Product();
-            Department department = departmentRepository.getOne(productDto.getWarehouseId());
+            Department department = departmentRepository.getOne(productDto.getDepartmentId());
             ProductType productType = productTypeRepository.getOne(productDto.getProductTypeId());
             productRepository.saveAndFlush(ProductConverter.toProduct(productDto, product, department, productType));
             kafkaProducer.send(product);
@@ -83,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             Product oldProduct = productRepository.findById(product.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             productRepository.detach(oldProduct);
-            Department department = departmentRepository.getOne(product.getWarehouseId());
+            Department department = departmentRepository.getOne(product.getDepartmentId());
             ProductType productType = productTypeRepository.getOne(product.getProductTypeId());
             Product updatedProduct = ProductConverter.toProduct(product, oldProduct, department, productType);
             productRepository.saveAndFlush(updatedProduct);

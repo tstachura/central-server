@@ -1,6 +1,7 @@
 package com.centralserver.model.products;
 
 import com.centralserver.model.enums.ProductStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.internal.NotNull;
 import lombok.Getter;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @Setter
 @EnableAutoConfiguration
 @Table(name = "PRODUCT")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product implements Serializable {
 
     @Id
@@ -40,7 +42,6 @@ public class Product implements Serializable {
     private ProductStatus status;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JsonManagedReference
     private ProductType productType;
 
     @Basic
@@ -59,7 +60,6 @@ public class Product implements Serializable {
     private boolean deleted;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JsonManagedReference
     private Department department;
 
     public Product() {

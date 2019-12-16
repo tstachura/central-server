@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @Setter
 @Table(name = "USER_")
 @EnableAutoConfiguration
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EqualsAndHashCode(of = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User implements UserDetails, Serializable {
 
     @Id
@@ -58,11 +58,11 @@ public class User implements UserDetails, Serializable {
     @JoinColumn(name = "USERDATA_ID")
     private Userdata userdata;
 
+    @OrderBy
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USERS_ROLES", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "USER_ROLE_ID", referencedColumnName = "ID"))
-    @OrderBy
-    @JsonIgnore
     private Collection<UserRole> userRoles;
 
     @Override

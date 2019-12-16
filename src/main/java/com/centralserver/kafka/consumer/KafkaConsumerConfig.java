@@ -4,7 +4,7 @@ package com.centralserver.kafka.consumer;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.centralserver.kafka.consumer.receivers.ProductReceiver;
+import com.centralserver.kafka.consumer.receivers.KafkaReceiver;
 
 import com.centralserver.model.products.Product;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -41,8 +41,8 @@ public class KafkaConsumerConfig {
 
     @Bean
     public ConsumerFactory<String, Product> productConsumerFactory() {
-        return new DefaultKafkaConsumerFactory<String, Product>(consumerConfigs(), new StringDeserializer(),
-                                                 new JsonDeserializer<>(Product.class));
+        return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(),
+                new JsonDeserializer<>(Product.class));
     }
 
     @Bean
@@ -54,8 +54,8 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ProductReceiver productReceiver() {
-        return new ProductReceiver();
+    public KafkaReceiver productReceiver() {
+        return new KafkaReceiver();
     }
 }
 

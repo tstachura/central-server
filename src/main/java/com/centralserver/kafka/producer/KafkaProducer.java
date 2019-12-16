@@ -1,6 +1,6 @@
 package com.centralserver.kafka.producer;
 
-import com.centralserver.kafka.consumer.receivers.ProductReceiver;
+import com.centralserver.kafka.consumer.receivers.KafkaReceiver;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
 import com.centralserver.model.users.Address;
@@ -21,15 +21,12 @@ public class KafkaProducer {
     private KafkaTemplate<String, Userdata> userdataTemplate;
 
     @Autowired
-    private KafkaTemplate<String, Address> addressKafkaTemplate;
-
-    @Autowired
     private KafkaTemplate<String, Product> productTemplate;
 
     @Autowired
     private KafkaTemplate<String, ProductType> productTypeKafkaTemplate;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductReceiver.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaReceiver.class);
 
 
     @Value(value = "${kafka.topic.unit}")
@@ -45,14 +42,9 @@ public class KafkaProducer {
         LOGGER.info("Produce userdata" + userdata.toString());
     }
 
-    public void send(Address address) {
-        addressKafkaTemplate.send(unitTopic, address);
-        LOGGER.info("Produce userdata" + address.toString());
-    }
-
     public void send(Product product) {
         productTemplate.send(unitTopic, product);
-        LOGGER.info("Produce product" + product.toString());
+        LOGGER.info("Produce product" + product.getSerialNumber());
     }
 
     public void send(ProductType productType) {

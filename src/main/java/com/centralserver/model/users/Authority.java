@@ -1,5 +1,6 @@
 package com.centralserver.model.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,11 +13,12 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@EnableAutoConfiguration
-@Table(name = "AUTHORITY", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
 @Getter
 @Setter
+@EnableAutoConfiguration
 @EqualsAndHashCode(of = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "AUTHORITY", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
 public class Authority implements GrantedAuthority {
 
     @Id

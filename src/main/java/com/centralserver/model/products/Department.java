@@ -16,11 +16,11 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@EnableAutoConfiguration
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "DEPARTMENT")
 @Getter
 @Setter
+@EnableAutoConfiguration
+@Table(name = "DEPARTMENT")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Department implements Serializable {
 
     @Id
@@ -40,8 +40,8 @@ public class Department implements Serializable {
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Product> devices = new HashSet<>();
 
 }

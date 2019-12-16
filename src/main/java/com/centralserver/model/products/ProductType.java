@@ -2,6 +2,7 @@ package com.centralserver.model.products;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @Setter
 @EnableAutoConfiguration
 @Table(name = "PRODUCT_TYPE")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ProductType implements Serializable {
 
     @Id
@@ -45,7 +47,7 @@ public class ProductType implements Serializable {
     @Column(name = "DELETED", nullable = false)
     private boolean deleted;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productType", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productType", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Product> products = new HashSet<>();
 }
