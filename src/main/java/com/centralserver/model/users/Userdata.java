@@ -23,7 +23,7 @@ public class Userdata implements Serializable {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
-    @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
+            @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id = null;
 
@@ -37,7 +37,7 @@ public class Userdata implements Serializable {
     @Column(name = "SURNAME", nullable = false)
     private String surname;
 
-    @Column(name = "EMAIL", nullable = false,unique = true)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
     @Column(name = "POSITION")
@@ -48,11 +48,11 @@ public class Userdata implements Serializable {
 
     @Basic
     @NotNull
-    @Column(name = "JOIN_DATE",nullable = false)
+    @Column(name = "JOIN_DATE", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Calendar dateOfJoin;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY,optional = false)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 }

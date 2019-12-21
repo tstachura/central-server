@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
@@ -19,7 +20,7 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "AUTHORITY", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
-public class Authority implements GrantedAuthority {
+public class Authority implements GrantedAuthority, Serializable {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -28,10 +29,10 @@ public class Authority implements GrantedAuthority {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id = null;
 
-    @Column(name = "NAME",nullable = false,unique = true)
+    @Column(name = "NAME", nullable = false, unique = true)
     private String name;
 
-    @Column(name= "ACTIVE",nullable = false)
+    @Column(name = "ACTIVE", nullable = false)
     private Boolean active;
 
     @Override

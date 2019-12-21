@@ -66,6 +66,7 @@ public class User implements UserDetails, Serializable {
     private Collection<UserRole> userRoles;
 
     @Override
+    @JsonIgnore
     public Collection<Authority> getAuthorities() {
         return this.getUserRoles().stream().flatMap(x -> x.getAuthorities().stream()).collect(Collectors.toList());
     }

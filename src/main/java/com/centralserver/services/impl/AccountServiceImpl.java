@@ -85,11 +85,7 @@ public class AccountServiceImpl implements AccountService {
         userdata.setVersion(accountDto.getVersionUserdata());
 
         try {
-            userdataRepository.save(userdata);
-            kafkaProducer.send(userdata);
-            user.setUserdata(userdata);
-            userRepository.save(user);
-            kafkaProducer.send(user);
+            saveAndFlushAccount(user, userdata);
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }
@@ -136,11 +132,17 @@ public class AccountServiceImpl implements AccountService {
         userdata.setAddress(address);
 
         try {
-            userdataRepository.saveAndFlush(userdata);
-            user.setUserdata(userdata);
-            userRepository.saveAndFlush(user);
+            saveAndFlushAccount(user, userdata);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void saveAndFlushAccount(User user, Userdata userdata) {
+        userdataRepository.saveAndFlush(userdata);
+        kafkaProducer.send(userdata);
+        user.setUserdata(userdata);
+        userRepository.saveAndFlush(user);
+        kafkaProducer.send(user);
     }
 }
