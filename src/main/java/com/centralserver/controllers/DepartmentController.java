@@ -17,9 +17,9 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin(maxAge = 3600)
-@RequestMapping("api/warehouses")
+@RequestMapping("api/departments")
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
-public class WarehouseController {
+public class DepartmentController {
 
     @Autowired
     private DepartmentService departmentService;
@@ -27,7 +27,7 @@ public class WarehouseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    Department getWarehouseToView(@PathVariable UUID id) throws SystemBaseException {
+    Department get(@PathVariable UUID id) throws SystemBaseException {
         return departmentService.getWarehouse(id);
     }
 
