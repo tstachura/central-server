@@ -46,6 +46,7 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private KafkaProducer kafkaProducer;
 
+
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('ACCOUNT_UPDATE_ADMIN')")
@@ -140,9 +141,9 @@ public class AccountServiceImpl implements AccountService {
 
     private void saveAndFlushAccount(User user, Userdata userdata) {
         userdataRepository.saveAndFlush(userdata);
-        kafkaProducer.send(userdata);
         user.setUserdata(userdata);
         userRepository.saveAndFlush(user);
         kafkaProducer.send(user);
+
     }
 }

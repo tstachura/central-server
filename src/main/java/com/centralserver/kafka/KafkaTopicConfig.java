@@ -16,12 +16,6 @@ public class KafkaTopicConfig {
     @Value(value = "${kafka.bootstrapAddress}")
     private String bootstrapAddress;
 
-    @Value(value = "${kafka.topic.central}")
-    private String centralTopic;
-
-    @Value(value = "${kafka.topic.unit}")
-    private String unitTopic;
-
     @Bean
     public KafkaAdmin kafkaAdmin() {
         Map<String, Object> configs = new HashMap<>();
@@ -30,12 +24,22 @@ public class KafkaTopicConfig {
     }
 
     @Bean
-    public NewTopic centralTopic() {
-        return new NewTopic(centralTopic, 1, (short) 1);
+    public NewTopic centralTopicUser() {
+        return new NewTopic("${kafka.topic.central.user}", 1, (short) 1);
     }
 
     @Bean
-    public NewTopic unitTopic() {
-        return new NewTopic(unitTopic, 1, (short) 1);
+    public NewTopic unitTopicUser() {
+        return new NewTopic("${kafka.topic.unit.user}", 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic unitTopicProduct() {
+        return new NewTopic("${kafka.topic.unit.product}", 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic unitTopicProductType() {
+        return new NewTopic("${kafka.topic.unit.product.type}", 1, (short) 1);
     }
 }

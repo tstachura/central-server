@@ -1,12 +1,12 @@
 package com.centralserver.kafka.consumer;
 
 
-import com.centralserver.kafka.consumer.receivers.KafkaReceiver;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
 import com.centralserver.model.users.User;
 import com.centralserver.model.users.Userdata;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +16,7 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.listener.adapter.RecordFilterStrategy;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.HashMap;
@@ -33,14 +34,14 @@ public class KafkaConsumerConfig {
 
     @Bean
     public KafkaListenerContainerFactory<?> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         factory.setBatchListener(true);
         return factory;
     }
 
     @Bean
-    public ConsumerFactory<String, String> consumerFactory() {
+    public ConsumerFactory<String, Object> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs());
     }
 
@@ -50,7 +51,7 @@ public class KafkaConsumerConfig {
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         return props;
     }
 
@@ -58,7 +59,7 @@ public class KafkaConsumerConfig {
     @Bean
     public ConsumerFactory<String, User> userConsumerFactory() {
         JsonDeserializer<User> deserializer = new JsonDeserializer<>(User.class);
-        deserializer.addTrustedPackages("com.centralserver.model.users");
+        deserializer.addTrustedPackages("*");
         deserializer.setUseTypeMapperForKey(true);
         return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(), deserializer);
     }
@@ -67,23 +68,7 @@ public class KafkaConsumerConfig {
     public ConcurrentKafkaListenerContainerFactory<String, User> userKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, User> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(userConsumerFactory());
-        return factory;
-    }
-
-    //USERDATA
-
-    @Bean
-    public ConsumerFactory<String, Userdata> userdataConsumerFactory() {
-        JsonDeserializer<Userdata> deserializer = new JsonDeserializer<>(Userdata.class);
-        deserializer.addTrustedPackages("com.centralserver.model.users");
-        deserializer.setUseTypeMapperForKey(true);
-        return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(), deserializer);
-    }
-
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, Userdata> userdataKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Userdata> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(userdataConsumerFactory());
+        factory.setBatchListener(true);
         return factory;
     }
 

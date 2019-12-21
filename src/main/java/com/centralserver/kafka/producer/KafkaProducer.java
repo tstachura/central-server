@@ -1,6 +1,5 @@
 package com.centralserver.kafka.producer;
 
-import com.centralserver.kafka.consumer.receivers.KafkaReceiver;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
 import com.centralserver.model.users.User;
@@ -17,37 +16,34 @@ public class KafkaProducer {
     private KafkaTemplate<String, User> userTemplate;
 
     @Autowired
-    private KafkaTemplate<String, Userdata> userdataTemplate;
-
-    @Autowired
     private KafkaTemplate<String, Product> productTemplate;
 
     @Autowired
     private KafkaTemplate<String, ProductType> productTypeKafkaTemplate;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaReceiver.class);
+    @Value(value = "${kafka.topic.unit.user}")
+    private String unitTopicUser;
 
+    @Value(value = "${kafka.topic.unit.product}")
+    private String unitTopicProduct;
 
-    @Value(value = "${kafka.topic.unit}")
-    private String unitTopic;
+    @Value(value = "${kafka.topic.unit.product.type}")
+    private String unitTopicProductType;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaProducer.class);
 
     public void send(User user) {
-        userTemplate.send(unitTopic, user);
+        userTemplate.send(unitTopicUser, user);
         LOGGER.info("Produce user" + user.toString());
     }
 
-    public void send(Userdata userdata) {
-        userdataTemplate.send(unitTopic, userdata);
-        LOGGER.info("Produce userdata" + userdata.toString());
-    }
-
     public void send(Product product) {
-        productTemplate.send(unitTopic, product);
+        productTemplate.send(unitTopicProduct, product);
         LOGGER.info("Produce product" + product.getSerialNumber());
     }
 
     public void send(ProductType productType) {
-        productTypeKafkaTemplate.send(unitTopic, productType);
+        productTypeKafkaTemplate.send(unitTopicProductType, productType);
         LOGGER.info("Produce product type" + productType.toString());
     }
 }

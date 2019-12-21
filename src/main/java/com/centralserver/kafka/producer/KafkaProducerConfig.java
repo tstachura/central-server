@@ -36,7 +36,10 @@ public class KafkaProducerConfig {
 
     @Bean
     public ProducerFactory<String, Product> productProducerFactory() {
-        return new DefaultKafkaProducerFactory<>(producerConfigs());
+        JsonSerializer<Product> serializer = new JsonSerializer<>();
+        serializer.setAddTypeInfo(true);
+        serializer.setUseTypeMapperForKey(true);
+        return new DefaultKafkaProducerFactory<>(producerConfigs(), new StringSerializer(), serializer);
     }
 
     @Bean
@@ -48,7 +51,10 @@ public class KafkaProducerConfig {
 
     @Bean
     public ProducerFactory<String, ProductType> productTypeProducerFactory() {
-        return new DefaultKafkaProducerFactory<>(producerConfigs());
+        JsonSerializer<ProductType> serializer = new JsonSerializer<>();
+        serializer.setAddTypeInfo(true);
+        serializer.setUseTypeMapperForKey(true);
+        return new DefaultKafkaProducerFactory<>(producerConfigs(), new StringSerializer(), serializer);
     }
 
     @Bean
@@ -60,24 +66,15 @@ public class KafkaProducerConfig {
 
     @Bean
     public ProducerFactory<String, User> userProducerFactory() {
-        return new DefaultKafkaProducerFactory<>(producerConfigs());
+        JsonSerializer<User> serializer = new JsonSerializer<>();
+        serializer.setAddTypeInfo(true);
+        serializer.setUseTypeMapperForKey(true);
+        return new DefaultKafkaProducerFactory<>(producerConfigs(), new StringSerializer(), serializer);
     }
 
     @Bean
     public KafkaTemplate<String, User> userKafkaTemplate() {
         return new KafkaTemplate<>(userProducerFactory());
-    }
-
-    //Userdata
-
-    @Bean
-    public ProducerFactory<String, Userdata> userdataProducerFactory() {
-        return new DefaultKafkaProducerFactory<>(producerConfigs());
-    }
-
-    @Bean
-    public KafkaTemplate<String, Userdata> userdataKafkaTemplate() {
-        return new KafkaTemplate<>(userdataProducerFactory());
     }
 
     @Bean
