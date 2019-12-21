@@ -1,10 +1,7 @@
 package com.centralserver.kafka.consumer.receivers;
 
-import java.util.concurrent.CountDownLatch;
-
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
-import com.centralserver.model.users.Address;
 import com.centralserver.model.users.User;
 import com.centralserver.model.users.Userdata;
 import com.centralserver.repositories.ProductRepository;
@@ -30,40 +27,35 @@ public class KafkaReceiver {
     @Autowired
     private UserdataRepository userdataRepository;
 
-    private final String id = "central-receiver";
-
-    private final String topic = "central-topic";
+    private final String topic = "unit-topic";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaReceiver.class);
 
-    private CountDownLatch latch = new CountDownLatch(1);
-
-
-    public CountDownLatch getLatch() {
-        return latch;
-    }
-
-    @KafkaListener(id = id, topics = topic, containerFactory = "kafkaListenerContainerFactory")
+    //    @KafkaHandler
+    @KafkaListener(id = "central-user-receiver", topics = topic, containerFactory = "userKafkaListenerContainerFactory")
     public void receive(User user) {
-        userRepository.saveAndFlush(user);
-        LOGGER.info("Received user" + user.toString());
+//        userRepository.saveAndFlush(user);
+        LOGGER.info("Received user: " + user.toString());
     }
 
-    @KafkaListener(id = id, topics = topic, containerFactory = "kafkaListenerContainerFactory")
+    //    @KafkaHandler
+    @KafkaListener(id = "central-userdata-receiver", topics = topic, containerFactory = "userdataKafkaListenerContainerFactory")
     public void receive(Userdata userdata) {
-        userdataRepository.saveAndFlush(userdata);
-        LOGGER.info("Received user" + userdata.toString());
+//        userdataRepository.saveAndFlush(userdata);
+        LOGGER.info("Received userdata: " + userdata.toString());
     }
 
-    @KafkaListener(id = id, topics = topic, containerFactory = "kafkaListenerContainerFactory")
+    //    @KafkaHandler
+    @KafkaListener(id = "central-product-receiver", topics = topic, containerFactory = "productKafkaListenerContainerFactory")
     public void receive(Product product) {
-        productRepository.saveAndFlush(product);
-        LOGGER.info("Received product" + product.toString());
+//        productRepository.saveAndFlush(product);
+        LOGGER.info("Received product: " + product.toString());
     }
 
-    @KafkaListener(id = id, topics = topic, containerFactory = "kafkaListenerContainerFactory")
+    //    @KafkaHandler
+    @KafkaListener(id = "central-product-type-receiver", topics = topic, containerFactory = "productTypeKafkaListenerContainerFactory")
     public void receive(ProductType productType) {
-        productTypeRepository.saveAndFlush(productType);
-        LOGGER.info("Received product" + productType.toString());
+//        productTypeRepository.saveAndFlush(productType);
+        LOGGER.info("Received product type: " + productType.toString());
     }
 }
