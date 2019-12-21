@@ -2,7 +2,6 @@ package com.centralserver.kafka.producer;
 
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
-import com.centralserver.model.users.Address;
 import com.centralserver.model.users.User;
 import com.centralserver.model.users.Userdata;
 import org.apache.kafka.clients.producer.ProducerConfig;
