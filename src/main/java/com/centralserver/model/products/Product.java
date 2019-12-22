@@ -69,4 +69,9 @@ public class Product implements Serializable {
         this.id = id;
         this.version = version;
     }
+
+    @Override
+    public String toString(){
+        return String.format("id:"+id.toString()+" serial number: "+serialNumber);
+    }
 }

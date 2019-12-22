@@ -85,4 +85,9 @@ public class User implements UserDetails, Serializable {
     public boolean isCredentialsNonExpired() {
         return !isCredentialsExpired();
     }
+
+    @Override
+    public String toString() {
+        return String.format("id:"+id.toString()+" username: "+username);
+    }
 }

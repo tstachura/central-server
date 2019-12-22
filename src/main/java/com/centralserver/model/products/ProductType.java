@@ -50,4 +50,9 @@ public class ProductType implements Serializable {
     @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productType", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Product> products = new HashSet<>();
+
+    @Override
+    public String toString(){
+        return String.format("id:"+id.toString()+" name: "+name);
+    }
 }

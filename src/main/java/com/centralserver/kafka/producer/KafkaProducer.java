@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.scheduling.annotation.Async;
@@ -56,14 +55,17 @@ public class KafkaProducer {
         future.addCallback(new ListenableFutureCallback<SendResult<String, T>>() {
             @Override
             public void onSuccess(SendResult<String, T> result) {
-                LOGGER.info("Sent message=[" + message.toString() + "] with offset=[" + result.getRecordMetadata().offset() + "]");
+                LOGGER.info("Sent message = [ "
+                        + message.getClass().getSimpleName() + " : " + message.toString()
+                        + " ] with offset=[ " + result.getRecordMetadata().offset() + " ]");
             }
 
             @Override
             public void onFailure(Throwable ex) {
                 KafkaMessageCache.put(message);
-                LOGGER.warn("Unable to send message=["
-                        + message.toString() + "] due to : " + ex.getMessage());
+                LOGGER.warn("Unable to send message =[ "
+                        + message.getClass().getSimpleName() + " : "
+                        + message.toString() + " ] due to : " + ex.getMessage());
             }
         });
     }
