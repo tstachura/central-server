@@ -1,6 +1,7 @@
 package com.centralserver.services.impl;
 
 import com.centralserver.dto.AccountDto;
+import com.centralserver.dto.ProfileEditDto;
 import com.centralserver.dto.RegistrationDto;
 import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
@@ -87,6 +88,47 @@ public class AccountServiceImpl implements AccountService {
 
         try {
             saveAndFlushAccount(user, userdata);
+        } catch (ObjectOptimisticLockingFailureException e) {
+            throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
+        }
+    }
+
+    @Override
+    @Transactional
+    @PreAuthorize("hasAuthority('ACCOUNT_UPDATE_SELF')")
+    public void updateProfileByUser(ProfileEditDto profileEditDto) throws EntityNotInDatabaseException, EntityOptimisticLockException, DatabaseErrorException {
+        User user = userRepository.findById(profileEditDto.getId()).orElseThrow((() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)));
+       userRepository.detach(user);
+        if (userRepository.findByUsername(profileEditDto.getUsername()).isPresent() && !user.getUsername().equals(profileEditDto.getUsername())) {
+            throw new DatabaseErrorException(DatabaseErrorException.USERNAME_TAKEN);
+        }
+
+        user.setUsername(profileEditDto.getUsername());
+        user.setAccountLocked(false);
+        user.setCredentialsExpired(false);
+        user.setVersion(profileEditDto.getVersionUser());
+
+        Userdata userdata = userdataRepository.findById(user.getUserdata().getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+        userdataRepository.detach(userdata);
+        if (userdataRepository.findByEmail(profileEditDto.getEmail()).isPresent() && !userdata.getEmail().equals(profileEditDto.getEmail())) {
+            throw new DatabaseErrorException(DatabaseErrorException.EMAIL_TAKEN);
+        }
+        userdata.setEmail(profileEditDto.getEmail());
+        userdata.setSurname(profileEditDto.getSurname());
+        userdata.setPosition(profileEditDto.getPosition());
+        userdata.setName(profileEditDto.getName());
+        userdata.setWorkplace(profileEditDto.getWorkplace());
+        userdata.setDateOfJoin(Calendar.getInstance());
+        Address address = new Address();
+        address.setFlatNumber(profileEditDto.getFlatNumber());
+        address.setBuildingNumber(profileEditDto.getHouseNumber());
+        address.setStreet(profileEditDto.getStreet());
+        address.setCity(profileEditDto.getCity());
+        userdata.setAddress(address);
+        userdata.setVersion(profileEditDto.getVersionUserdata());
+
+        try {
+            saveAndFlushAccount(user,userdata);
         } catch (ObjectOptimisticLockingFailureException e) {
             throw new EntityOptimisticLockException(EntityOptimisticLockException.OPTIMISTIC_LOCK);
         }

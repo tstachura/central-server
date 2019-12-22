@@ -1,5 +1,6 @@
 package com.centralserver.controllers;
 
+import com.centralserver.dto.ProfileEditDto;
 import com.centralserver.dto.RegistrationDto;
 import com.centralserver.dto.AccountDto;
 import com.centralserver.exception.base.SystemBaseException;
@@ -33,6 +34,13 @@ public class AccountController {
     @ResponseStatus(value = HttpStatus.OK)
     public ResponseEntity<?> addUser(@RequestBody RegistrationDto data) throws SystemBaseException {
         accountService.registerNewUserAccount(data, true);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "self/edit", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public ResponseEntity<?> safeProfileAfterEdit(@RequestBody ProfileEditDto data)throws SystemBaseException {
+        accountService.updateProfileByUser(data);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
