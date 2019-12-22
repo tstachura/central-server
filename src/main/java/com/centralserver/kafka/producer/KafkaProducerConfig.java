@@ -3,7 +3,6 @@ package com.centralserver.kafka.producer;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
 import com.centralserver.model.users.User;
-import com.centralserver.model.users.Userdata;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,7 +34,6 @@ public class KafkaProducerConfig {
     }
 
     //Product
-
     @Bean
     public ProducerFactory<String, Product> productProducerFactory() {
         JsonSerializer<Product> serializer = new JsonSerializer<>();
@@ -50,7 +48,6 @@ public class KafkaProducerConfig {
     }
 
     //ProductType
-
     @Bean
     public ProducerFactory<String, ProductType> productTypeProducerFactory() {
         JsonSerializer<ProductType> serializer = new JsonSerializer<>();
@@ -65,7 +62,6 @@ public class KafkaProducerConfig {
     }
 
     // User
-
     @Bean
     public ProducerFactory<String, User> userProducerFactory() {
         JsonSerializer<User> serializer = new JsonSerializer<>();

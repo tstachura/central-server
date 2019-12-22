@@ -88,6 +88,6 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public String toString() {
-        return String.format("id:"+id.toString()+" username: "+username);
+        return String.format("id:" + id.toString() + " username: " + username);
     }
 }

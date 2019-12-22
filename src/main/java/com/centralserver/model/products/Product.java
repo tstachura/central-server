@@ -2,7 +2,6 @@ package com.centralserver.model.products;
 
 import com.centralserver.model.enums.ProductStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.internal.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -71,7 +70,7 @@ public class Product implements Serializable {
     }
 
     @Override
-    public String toString(){
-        return String.format("id:"+id.toString()+" serial number: "+serialNumber);
+    public String toString() {
+        return String.format("id:" + id.toString() + " serial number: " + serialNumber);
     }
 }
