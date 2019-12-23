@@ -2,6 +2,7 @@ package com.centralserver.server;
 
 import com.centralserver.encryption.Encoders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,6 +59,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .anyRequest().authenticated();
         http.httpBasic().disable();
     }
+//
+//    @Override
+//    protected void configure(final HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers(ERROR_PATTERN).permitAll()
+//                .antMatchers("/").permitAll()
+//                .antMatchers("/ui/**").permitAll()
+//                .antMatchers("/index.html").permitAll()
+//                .antMatchers("/login").permitAll()
+//                .antMatchers("/oauth/token/revokeById/**").permitAll()
+//                .anyRequest().authenticated();
+//        http.httpBasic().disable();
+//    }
 
 }
 

@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin(maxAge = 3600)
-@RequestMapping("api/products/type")
+@RequestMapping("/secured/products/type")
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
 public class ProductTypeController {
 

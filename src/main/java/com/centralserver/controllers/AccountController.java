@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(maxAge = 3600)
-@RequestMapping("api/account")
+@RequestMapping("/secured/account")
 @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = SystemBaseException.class)
 public class AccountController {
 

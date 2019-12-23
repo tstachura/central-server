@@ -1,6 +1,7 @@
 package com.centralserver.services.impl;
 
 import com.centralserver.dto.PasswordInfoDto;
+import com.centralserver.dto.PasswordResetDto;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
 import com.centralserver.exception.ServiceException;

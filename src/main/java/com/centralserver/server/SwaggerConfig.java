@@ -54,7 +54,8 @@ public class SwaggerConfig {
 
     private Predicate<String> getSwaggerPaths() {
         return or(
-                regex("/api.*"),
+                regex("/secured.*"),
+                regex("/oauth/token.*"),
                 regex("/test.*"));
     }
 }
