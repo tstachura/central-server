@@ -1,11 +1,9 @@
 package com.centralserver.services;
 
 import com.centralserver.dto.PasswordInfoDto;
-import com.centralserver.dto.PasswordResetDto;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
 import com.centralserver.exception.ServiceException;
-import com.centralserver.exception.base.SystemBaseException;
 import com.centralserver.model.users.User;
 import com.centralserver.model.users.UserRole;
 import org.springframework.security.access.prepost.PreAuthorize;
