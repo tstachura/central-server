@@ -46,32 +46,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(userPasswordEncoder);
     }
 
-
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
-//                .antMatchers(ERROR_PATTERN).permitAll()
-                .antMatchers("/").permitAll();
-//                .antMatchers("/ui/**").permitAll()
-//                .antMatchers("/index.html").permitAll()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/oauth/token/revokeById/**").permitAll()
-//                .anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers(ERROR_PATTERN).permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/oauth/token/revokeById/**").permitAll()
+                .anyRequest().authenticated();
         http.httpBasic().disable();
     }
-//
-//    @Override
-//    protected void configure(final HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers(ERROR_PATTERN).permitAll()
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/ui/**").permitAll()
-//                .antMatchers("/index.html").permitAll()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/oauth/token/revokeById/**").permitAll()
-//                .anyRequest().authenticated();
-//        http.httpBasic().disable();
-//    }
 
 }
 

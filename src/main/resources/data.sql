@@ -8,6 +8,7 @@ TRUNCATE TABLE ADDRESS CASCADE;
 TRUNCATE TABLE USER_ CASCADE;
 TRUNCATE TABLE USER_ROLE CASCADE;
 TRUNCATE TABLE USERS_ROLES_AUTHORITIES CASCADE;
+TRUNCATE TABLE OAUTH_CLIENT_DETAILS CASCADE;
 
 --//---- ADDRESSES ----//--
 INSERT INTO public.address (id, building_number, city, deleted, flat_number, street, version) VALUES ('ee7396e0-1f20-11ea-978f-2e728ce88125', '60', 'Kraków', false, null, 'Podole', 0);
@@ -29,6 +30,17 @@ INSERT INTO public.userdata (id, join_date, email, name, position, surname, vers
 INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES ('6e227924-1f21-11ea-978f-2e728ce88125', '2019-01-12 02:20:51.642000', 'email3@email.com', 'David', null, 'William', 0, null, '0059864e-1f21-11ea-978f-2e728ce88125');
 INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES ('79815984-1f21-11ea-978f-2e728ce88125', '2019-01-12 02:20:21.659000', 'email4@email.com', 'Robert', null, 'William', 0, null, '0c3da4a4-1f21-11ea-978f-2e728ce88125');
 INSERT INTO public.userdata (id, join_date, email, name, position, surname, version, workplace, address_id) VALUES ('821bb166-1f21-11ea-978f-2e728ce88125', '2019-01-19 12:45:25.764000', 'email5@email.com', 'Kamil', 'Programista', 'Nowak', 0, null, '1152922e-1f21-11ea-a5e8-2e728ce88125');
+
+
+INSERT INTO OAUTH_CLIENT_DETAILS(CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET, SCOPE, AUTHORIZED_GRANT_TYPES, AUTHORITIES, ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY)
+	VALUES ('spring-security-oauth2-read-client', 'resource-server-rest-api',
+	/*spring-security-oauth2-read-client-password1234*/'$2a$04$WGq2P9egiOYoOFemBRfsiO9qTcyJtNRnPKNBl5tokP7IP.eZn93km',
+	'read', 'password,authorization_code,refresh_token,implicit', 'USER', 10800, 2592000);
+
+INSERT INTO OAUTH_CLIENT_DETAILS(CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET, SCOPE, AUTHORIZED_GRANT_TYPES, AUTHORITIES, ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY)
+	VALUES ('spring-security-oauth2-read-write-client', 'resource-server-rest-api',
+	/*spring-security-oauth2-read-write-client-password1234*/'$2a$04$soeOR.QFmClXeFIrhJVLWOQxfHjsJLSpWrU1iGxcMGdu.a5hvfY4W',
+	'read,write', 'password,authorization_code,refresh_token,implicit', 'USER', 10800, 2592000);
 
 --//---- AUTHORITIES ----//--
 
@@ -66,7 +78,7 @@ INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('6d9162dc-1f25-11ea-a5e8-2e728ce8
 INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('7685c356-1f25-11ea-978f-2e728ce88125',TRUE, 'PASSWORD_ADMIN_READ');
 
 --//---- USER ----//--
-INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', false, false, false, true, '$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l82Cd0jNsX6AJUitbgRXGzge4j025ha', 'admin', 0, '65efc27a-1f21-11ea-978f-2e728ce88125');
+INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES ('75e20624-1f22-11ea-a32c-2e728ce88125', false, false, false, true, '$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l83Cd0jNsX6AJUitbgRXGzge4j035ha', 'admin', 0, '65efc27a-1f21-11ea-978f-2e728ce88125');
 INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES ('9325a2c2-1f22-11ea-978f-2e728ce88125', false, false, false, true, '$2a$08$uSVsWY2W1VPF/fKGHlwYN.ntllnUW6eYOTsRrPeO4VZ5d8dYJymFC', 'departmentman', 0, '6a56949c-1f21-11ea-978f-2e728ce88125');
 INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES ('87b1aa9e-1f27-11ea-978f-2e728ce88125', false, false, false, true, '$2a$08$KjqKtpwHqXLJWo2XEP5u6uYJ2gtkKPNMgKxAnlG9pJnbzl4QQWIQ6', 'user', 0, '6e227924-1f21-11ea-978f-2e728ce88125');
 
