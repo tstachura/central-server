@@ -182,7 +182,6 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private void saveAndFlushAccount(User user, Userdata userdata) {
-        userdataRepository.saveAndFlush(userdata);
         user.setUserdata(userdata);
         userRepository.saveAndFlush(user);
         kafkaProducer.send(user);

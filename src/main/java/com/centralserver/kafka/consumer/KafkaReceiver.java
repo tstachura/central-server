@@ -15,7 +15,7 @@ public class KafkaReceiver {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaReceiver.class);
 
-    @KafkaListener(id = "central-user-receiver", topics = "${kafka.topic.central.user}", containerFactory = "userKafkaListenerContainerFactory")
+    @KafkaListener(id = "central-user-receiver", topics = "central-topic-user", containerFactory = "userKafkaListenerContainerFactory")
     public void receive(User user) {
         userRepository.saveAndFlush(user);
         LOGGER.info("Received user: " + user.toString());

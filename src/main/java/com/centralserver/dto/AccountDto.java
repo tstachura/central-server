@@ -23,7 +23,6 @@ public class AccountDto implements Serializable {
     private String flatNumber;
     private String position;
     private String workplace;
-    private UUID departmentId;
     private List<String> roles;
     private long versionUser;
     private long versionUserdata;

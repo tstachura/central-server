@@ -25,21 +25,21 @@ public class KafkaTopicConfig {
 
     @Bean
     public NewTopic centralTopicUser() {
-        return new NewTopic("${kafka.topic.central.user}", 1, (short) 1);
+        return new NewTopic("central-topic-user", 1, (short) 1);
     }
 
     @Bean
     public NewTopic unitTopicUser() {
-        return new NewTopic("${kafka.topic.unit.user}", 1, (short) 1);
+        return new NewTopic("unit-topic-user", 1, (short) 1);
     }
 
     @Bean
     public NewTopic unitTopicProduct() {
-        return new NewTopic("${kafka.topic.unit.product}", 1, (short) 1);
+        return new NewTopic("unit-topic-product", 1, (short) 1);
     }
 
     @Bean
     public NewTopic unitTopicProductType() {
-        return new NewTopic("${kafka.topic.unit.product.type}", 1, (short) 1);
+        return new NewTopic("unit-topic-product-type", 1, (short) 1);
     }
 }

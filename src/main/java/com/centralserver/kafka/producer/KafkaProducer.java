@@ -25,14 +25,12 @@ public class KafkaProducer {
     @Autowired
     private KafkaTemplate<String, ProductType> productTypeKafkaTemplate;
 
-    @Value(value = "${kafka.topic.unit.user}")
-    private String unitTopicUser;
 
-    @Value(value = "${kafka.topic.unit.product}")
-    private String unitTopicProduct;
+    private String unitTopicUser="unit-topic-user";
 
-    @Value(value = "${kafka.topic.unit.product.type}")
-    private String unitTopicProductType;
+    private String unitTopicProduct="unit-topic-product";
+
+    private String unitTopicProductType="unit-topic-product-type";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaProducer.class);
 
