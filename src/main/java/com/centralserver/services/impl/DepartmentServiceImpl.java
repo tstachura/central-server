@@ -27,7 +27,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
-    @PreAuthorize("hasAuthority('WAREHOUSE_READ')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
     public Department getWarehouse(UUID id) throws EntityNotInDatabaseException {
         Department department = departmentRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
         return department.isDeleted() ? null : department;
@@ -35,14 +35,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
-    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_LIST_READ')")
     public List<Department> getAll() {
         return departmentRepository.findAll().stream().filter(warehouse -> !warehouse.isDeleted()).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('WAREHOUSE_CREATE')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_CREATE')")
     public void createWarehouse(DepartmentDto warehouseDto) throws DatabaseErrorException {
         try {
             Department department = new Department();
@@ -54,7 +54,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('WAREHOUSE_UPDATE')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
     public void updateWarehouse(DepartmentDto warehouseDto) throws EntityNotInDatabaseException, DatabaseErrorException {
         try {
             Department oldDepartment = departmentRepository.findById(warehouseDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
@@ -67,7 +67,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('WAREHOUSE_DELETE')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")
     public void deleteWarehouseById(UUID id) throws EntityNotInDatabaseException {
         departmentRepository.findById(id).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT)).setDeleted(true);
     }

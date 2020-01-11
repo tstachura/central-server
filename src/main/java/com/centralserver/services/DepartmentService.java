@@ -14,22 +14,22 @@ import java.util.UUID;
 public interface DepartmentService {
 
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
-    @PreAuthorize("hasAuthority('WAREHOUSE_READ')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_READ')")
     Department getWarehouse(UUID id) throws EntityNotInDatabaseException;
 
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
-    @PreAuthorize("hasAuthority('WAREHOUSE_LIST_READ')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_LIST_READ')")
     List<Department> getAll();
 
     @Transactional
-    @PreAuthorize("hasAuthority('WAREHOUSE_CREATE')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_CREATE')")
     void createWarehouse(DepartmentDto warehouseDto) throws DatabaseErrorException;
 
     @Transactional
-    @PreAuthorize("hasAuthority('WAREHOUSE_UPDATE')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
     void updateWarehouse(DepartmentDto warehouseDto) throws EntityNotInDatabaseException, DatabaseErrorException;
 
     @Transactional
-    @PreAuthorize("hasAuthority('WAREHOUSE_DELETE')")
+    @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")
     void deleteWarehouseById(UUID id) throws EntityNotInDatabaseException;
 }
