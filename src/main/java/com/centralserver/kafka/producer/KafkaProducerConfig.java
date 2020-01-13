@@ -37,7 +37,6 @@ public class KafkaProducerConfig {
     @Bean
     public ProducerFactory<String, Product> productProducerFactory() {
         JsonSerializer<Product> serializer = new JsonSerializer<>();
-        serializer.setAddTypeInfo(true);
         serializer.setUseTypeMapperForKey(true);
         return new DefaultKafkaProducerFactory<>(producerConfigs(), new StringSerializer(), serializer);
     }
@@ -51,7 +50,6 @@ public class KafkaProducerConfig {
     @Bean
     public ProducerFactory<String, ProductType> productTypeProducerFactory() {
         JsonSerializer<ProductType> serializer = new JsonSerializer<>();
-        serializer.setAddTypeInfo(true);
         serializer.setUseTypeMapperForKey(true);
         return new DefaultKafkaProducerFactory<>(producerConfigs(), new StringSerializer(), serializer);
     }
@@ -65,7 +63,6 @@ public class KafkaProducerConfig {
     @Bean
     public ProducerFactory<String, User> userProducerFactory() {
         JsonSerializer<User> serializer = new JsonSerializer<>();
-        serializer.setAddTypeInfo(true);
         serializer.setUseTypeMapperForKey(true);
         return new DefaultKafkaProducerFactory<>(producerConfigs(), new StringSerializer(), serializer);
     }

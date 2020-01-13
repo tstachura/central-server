@@ -1,8 +1,6 @@
 package com.centralserver.kafka.consumer;
 
 
-import com.centralserver.model.products.Product;
-import com.centralserver.model.products.ProductType;
 import com.centralserver.model.users.User;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -14,6 +12,8 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.support.converter.DefaultJackson2JavaTypeMapper;
+import org.springframework.kafka.support.converter.StringJsonMessageConverter;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.HashMap;
@@ -28,6 +28,12 @@ public class KafkaConsumerConfig {
 
     @Value(value = "${kafka.groupId}")
     private String groupId;
+
+    @Bean
+    public StringJsonMessageConverter jsonConverter() {
+        return new StringJsonMessageConverter();
+    }
+
 
     @Bean
     public KafkaListenerContainerFactory<?> kafkaListenerContainerFactory() {
@@ -55,8 +61,13 @@ public class KafkaConsumerConfig {
     //USER
     @Bean
     public ConsumerFactory<String, User> userConsumerFactory() {
+        DefaultJackson2JavaTypeMapper typeMapper = new DefaultJackson2JavaTypeMapper();
+        Map<String, Class<?>> classMap = new HashMap<>();
+        classMap.put("b.event.Operation", User.class);
+        typeMapper.setIdClassMapping(classMap);
+        typeMapper.addTrustedPackages("*");
         JsonDeserializer<User> deserializer = new JsonDeserializer<>(User.class);
-        deserializer.addTrustedPackages("*");
+        deserializer.setTypeMapper(typeMapper);
         deserializer.setUseTypeMapperForKey(true);
         return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(), deserializer);
     }
@@ -66,39 +77,6 @@ public class KafkaConsumerConfig {
         ConcurrentKafkaListenerContainerFactory<String, User> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(userConsumerFactory());
         factory.setBatchListener(true);
-        return factory;
-    }
-
-    //PRODUCT
-    @Bean
-    public ConsumerFactory<String, Product> productConsumerFactory() {
-        JsonDeserializer<Product> deserializer = new JsonDeserializer<>(Product.class);
-        deserializer.addTrustedPackages("com.centralserver.model.products");
-        deserializer.setUseTypeMapperForKey(true);
-        return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(), deserializer);
-    }
-
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, Product> productKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Product> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(productConsumerFactory());
-        return factory;
-    }
-
-    //PRODUCT TYPE
-
-    @Bean
-    public ConsumerFactory<String, ProductType> productTypeConsumerFactory() {
-        JsonDeserializer<ProductType> deserializer = new JsonDeserializer<>(ProductType.class);
-        deserializer.addTrustedPackages("com.centralserver.model.products");
-        deserializer.setUseTypeMapperForKey(true);
-        return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(), deserializer);
-    }
-
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, ProductType> productTypeKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, ProductType> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(productTypeConsumerFactory());
         return factory;
     }
 
