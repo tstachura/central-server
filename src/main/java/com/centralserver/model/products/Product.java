@@ -1,5 +1,6 @@
 package com.centralserver.model.products;
 
+import com.centralserver.model.Department;
 import com.centralserver.model.enums.ProductStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.internal.NotNull;

@@ -1,5 +1,6 @@
 package com.centralserver.kafka.producer;
 
+import com.centralserver.model.Department;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
 import com.centralserver.model.users.User;
@@ -70,6 +71,20 @@ public class KafkaProducerConfig {
     @Bean
     public KafkaTemplate<String, User> userKafkaTemplate() {
         return new KafkaTemplate<>(userProducerFactory());
+    }
+
+
+    // Department
+    @Bean
+    public ProducerFactory<String, Department> departmentProducerFactory() {
+        JsonSerializer<Department> serializer = new JsonSerializer<>();
+        serializer.setUseTypeMapperForKey(true);
+        return new DefaultKafkaProducerFactory<>(producerConfigs(), new StringSerializer(), serializer);
+    }
+
+    @Bean
+    public KafkaTemplate<String, Department> departmentKafkaTemplate() {
+        return new KafkaTemplate<>(departmentProducerFactory());
     }
 
     @Bean

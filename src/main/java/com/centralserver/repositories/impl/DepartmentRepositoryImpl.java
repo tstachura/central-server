@@ -1,6 +1,6 @@
 package com.centralserver.repositories.impl;
 
-import com.centralserver.model.products.Department;
+import com.centralserver.model.Department;
 import com.centralserver.repositories.custom_interface.CustomDepartmentRepository;
 
 import javax.persistence.EntityManager;

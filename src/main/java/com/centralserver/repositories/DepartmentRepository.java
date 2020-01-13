@@ -1,6 +1,6 @@
 package com.centralserver.repositories;
 
-import com.centralserver.model.products.Department;
+import com.centralserver.model.Department;
 import com.centralserver.repositories.custom_interface.CustomDepartmentRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -2,7 +2,7 @@ package com.centralserver.controllers;
 
 import com.centralserver.dto.DepartmentDto;
 import com.centralserver.exception.base.SystemBaseException;
-import com.centralserver.model.products.Department;
+import com.centralserver.model.Department;
 import com.centralserver.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,7 @@ public class DepartmentController {
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
     Department get(@PathVariable UUID id) throws SystemBaseException {
-        return departmentService.getWarehouse(id);
+        return departmentService.getDepartment(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,20 +40,20 @@ public class DepartmentController {
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody DepartmentDto warehouseDto) throws SystemBaseException {
-        departmentService.createWarehouse(warehouseDto);
+    public ResponseEntity<?> create(@RequestBody DepartmentDto departmentDto) throws SystemBaseException {
+        departmentService.createDepartment(departmentDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody DepartmentDto warehouseDto) throws SystemBaseException {
-        departmentService.updateWarehouse(warehouseDto);
+    public void update(@RequestBody DepartmentDto departmentDto) throws SystemBaseException {
+        departmentService.updateDepartment(departmentDto);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable UUID id) throws SystemBaseException {
-        departmentService.deleteWarehouseById(id);
+        departmentService.deleteDepartmentById(id);
     }
 }

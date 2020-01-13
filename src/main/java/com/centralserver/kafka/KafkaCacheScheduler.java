@@ -1,6 +1,7 @@
 package com.centralserver.kafka;
 
 import com.centralserver.kafka.producer.KafkaProducer;
+import com.centralserver.model.Department;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
 import com.centralserver.model.users.User;
@@ -37,6 +38,10 @@ public class KafkaCacheScheduler {
                 case "ProductType":
                     kafkaProducer.send((ProductType) message);
                     LOGGER.warn("Cached message ProductType : " + message.toString() + " is sent");
+                    break;
+                case "Department":
+                    kafkaProducer.send((Department) message);
+                    LOGGER.warn("Cached message Department : " + message.toString() + " is sent");
                     break;
                 default:
                     LOGGER.warn("Incorrect object type");

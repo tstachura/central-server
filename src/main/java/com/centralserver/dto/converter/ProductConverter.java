@@ -2,7 +2,7 @@ package com.centralserver.dto.converter;
 
 import com.centralserver.dto.ProductDto;
 import com.centralserver.model.enums.ProductStatus;
-import com.centralserver.model.products.Department;
+import com.centralserver.model.Department;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
 

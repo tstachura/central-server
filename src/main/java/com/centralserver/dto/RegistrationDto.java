@@ -9,7 +9,6 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class RegistrationDto {
-
     private String username;
     private String password;
     private String email;
@@ -21,7 +20,6 @@ public class RegistrationDto {
     private String flatNumber;
     private String position;
     private String workplace;
-    private Long officeId;
     private List<String> roles;
 
 }

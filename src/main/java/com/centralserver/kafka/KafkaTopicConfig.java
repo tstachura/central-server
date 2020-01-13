@@ -42,4 +42,9 @@ public class KafkaTopicConfig {
     public NewTopic unitTopicProductType() {
         return new NewTopic("unit-topic-product-type", 1, (short) 1);
     }
+
+    @Bean
+    public NewTopic unitTopicDepartment() {
+        return new NewTopic("unit-topic-department", 1, (short) 1);
+    }
 }

@@ -1,6 +1,7 @@
-package com.centralserver.model.products;
+package com.centralserver.model;
 
 
+import com.centralserver.model.products.Product;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -44,5 +45,9 @@ public class Department implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Product> devices = new HashSet<>();
 
+    @Override
+    public String toString() {
+        return String.format("id:" + id.toString() + " username: " + name);
+    }
 }
 

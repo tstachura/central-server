@@ -11,7 +11,6 @@ import java.util.UUID;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class AccountDto implements Serializable {
-
     private UUID id;
     private String username;
     private String email;

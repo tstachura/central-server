@@ -6,7 +6,7 @@ import com.centralserver.exception.DatabaseErrorException;
 import com.centralserver.exception.EntityNotInDatabaseException;
 import com.centralserver.exception.EntityOptimisticLockException;
 import com.centralserver.kafka.producer.KafkaProducer;
-import com.centralserver.model.products.Department;
+import com.centralserver.model.Department;
 import com.centralserver.model.products.Product;
 import com.centralserver.model.products.ProductType;
 import com.centralserver.repositories.DepartmentRepository;
@@ -69,8 +69,8 @@ public class ProductServiceImpl implements ProductService {
             Product product = new Product();
             Department department = departmentRepository.getOne(productDto.getDepartmentId());
             ProductType productType = productTypeRepository.getOne(productDto.getProductTypeId());
-            productRepository.saveAndFlush(ProductConverter.toProduct(productDto, product, department, productType));
-            kafkaProducer.send(product);
+            Product savedProduct = productRepository.saveAndFlush(ProductConverter.toProduct(productDto, product, department, productType));
+            kafkaProducer.send(savedProduct);
         } catch (PersistenceException e) {
             throw new DatabaseErrorException(DatabaseErrorException.SERIAL_NUMBER_NAME_TAKEN);
         }

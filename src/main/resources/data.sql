@@ -75,6 +75,9 @@ INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('6d9162dc-1f25-11ea-a5e8-2e728ce8
 INSERT INTO AUTHORITY(ID,ACTIVE, NAME) VALUES ('7685c356-1f25-11ea-978f-2e728ce88125',TRUE, 'PASSWORD_ADMIN_READ');
 INSERT INTO AUTHORITy (ID,ACTIVE, NAME) VALUES ('c5b95930-2d6a-11ea-978f-2e728ce88125',TRUE, 'USER_CREATE');
 
+INSERT INTO public.department (id, deleted, name, version) VALUES ('5cbfeed2-1f26-11ea-978f-2e728ce88125', false, 'Łódź | Unit Office department', 0);
+INSERT INTO public.department (id, deleted, name, version) VALUES ('9b102026-3641-11ea-978f-2e728ce88125', false, 'Łódź |  Central office department', 0);
+
 --//---- USER ----//--
 INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES ('14e2df64-2d6a-11ea-978f-2e728ce88125', false, false, false, true, '$2a$08$qvrzQZ7jJ7oy2p/msL4M0.l83Cd0jNsX6AJUitbgRXGzge4j035ha', 'admin', 0, '65efc27a-1f21-11ea-978f-2e728ce88125');
 INSERT INTO public.user_ (id, account_expired, account_locked, credentials_expired, enabled, password, user_name, version, userdata_id) VALUES ('26592f5a-2d6a-11ea-978f-2e728ce88125', false, false, false, true, '$2a$08$KjqKtpwHqXLJWo2XEP5u6uYJ2gtkKPNMgKxAnlG9pJnbzl4QQWIQ6', 'user', 0, 'd9700e86-2d94-11ea-978f-2e728ce88125');
@@ -120,8 +123,6 @@ INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('9325a2c
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('9325a2c2-1f22-11ea-978f-2e728ce88125', 'e3423bea-1f21-11ea-978f-2e728ce88125');
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('9325a2c2-1f22-11ea-978f-2e728ce88125', 'dc8fa59e-1f21-11ea-978f-2e728ce88125');
 INSERT INTO USERS_ROLES_AUTHORITIES(USER_ROLE_ID, AUTHORITY_ID) VALUES ('9325a2c2-1f22-11ea-978f-2e728ce88125', '9e73257e-1f21-11ea-978f-2e728ce88125');
-
-INSERT INTO public.department (id, deleted, name, version) VALUES ('5cbfeed2-1f26-11ea-978f-2e728ce88125', false, 'Łódź | Office department', 0);
 
 INSERT INTO public.product_type (id, cost, deleted, manufacture, name, version) VALUES ('dc183220-1f26-11ea-978f-2e728ce88125', 279, false, 'ASUS', 'Mysz Razer Naga Trinity (RZ01-02410100-R2M1)', 0);
 INSERT INTO public.product_type (id, cost, deleted, manufacture, name, version) VALUES ('e9942b16-1f26-11ea-978f-2e728ce88125', 2099, false, 'Lenovo', 'Laptop Lenovo V110-15IKB (80TH002CPB)', 0);

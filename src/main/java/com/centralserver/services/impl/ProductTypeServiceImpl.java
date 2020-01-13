@@ -53,8 +53,8 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     public void createNewDeviceModel(ProductTypeDto productTypeDto) throws DatabaseErrorException {
         try {
             ProductType productType = new ProductType();
-            productTypeRepository.saveAndFlush(ProductTypeConverter.toProductType(productTypeDto, productType));
-            kafkaProducer.send(productType);
+            ProductType savedProductType = productTypeRepository.saveAndFlush(ProductTypeConverter.toProductType(productTypeDto, productType));
+            kafkaProducer.send(savedProductType);
         } catch (PersistenceException e) {
             throw new DatabaseErrorException(DatabaseErrorException.PRODUCT_TYPE_NAME_NAME_TAKEN);
         }
