@@ -1,6 +1,7 @@
 package com.centralserver.model.products;
 
 
+import com.centralserver.utils.Identifiable;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -8,7 +9,6 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,11 +22,11 @@ import java.util.UUID;
 @EnableAutoConfiguration
 @Table(name = "PRODUCT_TYPE")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class ProductType implements Serializable {
+public class ProductType implements Serializable, Identifiable<UUID> {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
+    @GenericGenerator(name = "UUID", strategy = "com.centralserver.utils.FallbackUUIDGenerator", parameters = {
     @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id = null;
@@ -52,7 +52,7 @@ public class ProductType implements Serializable {
     private Set<Product> products = new HashSet<>();
 
     @Override
-    public String toString(){
-        return String.format("id:"+id.toString()+" name: "+name);
+    public String toString() {
+        return String.format("id:" + id.toString() + " name: " + name);
     }
 }

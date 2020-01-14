@@ -1,5 +1,6 @@
 package com.centralserver.model.users;
 
+import com.centralserver.utils.Identifiable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -19,11 +20,11 @@ import java.util.UUID;
 @EnableAutoConfiguration
 @Table(name = "USER_ROLE")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class UserRole implements Serializable {
+public class UserRole implements Serializable, Identifiable<UUID> {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
+    @GenericGenerator(name = "UUID", strategy = "com.centralserver.utils.FallbackUUIDGenerator", parameters = {
     @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id = null;

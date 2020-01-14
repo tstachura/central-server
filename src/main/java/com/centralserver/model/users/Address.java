@@ -1,5 +1,6 @@
 package com.centralserver.model.users;
 
+import com.centralserver.utils.Identifiable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,11 +18,11 @@ import java.util.UUID;
 @EnableAutoConfiguration
 @Table(name = "ADDRESS")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Address implements Serializable {
+public class Address implements Serializable, Identifiable<UUID> {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
+    @GenericGenerator(name = "UUID", strategy = "com.centralserver.utils.FallbackUUIDGenerator", parameters = {
     @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id = null;
@@ -33,10 +34,10 @@ public class Address implements Serializable {
     @Column(name = "CITY", nullable = false)
     private String city;
 
-    @Column(name = "STREET",nullable = false)
+    @Column(name = "STREET", nullable = false)
     private String street;
 
-    @Column(name = "BUILDING_NUMBER",nullable = false)
+    @Column(name = "BUILDING_NUMBER", nullable = false)
     private String buildingNumber;
 
     @Column(name = "FLAT_NUMBER")

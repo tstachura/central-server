@@ -22,7 +22,6 @@ public class KafkaReceiver {
 
     @KafkaListener(id = "central-user-receiver", topics = "central-topic-user", containerFactory = "userKafkaListenerContainerFactory")
     public void receive(User user) {
-//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         userRepository.saveAndFlush(user);
         LOGGER.info("Received user: " + user.toString());
     }

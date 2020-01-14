@@ -2,6 +2,7 @@ package com.centralserver.model.products;
 
 import com.centralserver.model.Department;
 import com.centralserver.model.enums.ProductStatus;
+import com.centralserver.utils.Identifiable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.internal.NotNull;
 import lombok.Getter;
@@ -21,11 +22,11 @@ import java.util.UUID;
 @EnableAutoConfiguration
 @Table(name = "PRODUCT")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Product implements Serializable {
+public class Product implements Serializable, Identifiable<UUID> {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator", parameters = {
+    @GenericGenerator(name = "UUID", strategy = "com.centralserver.utils.FallbackUUIDGenerator", parameters = {
     @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy")})
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id = null;
