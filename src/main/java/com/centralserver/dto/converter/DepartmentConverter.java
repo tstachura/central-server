@@ -5,7 +5,7 @@ import com.centralserver.model.Department;
 
 public class DepartmentConverter {
 
-    public static DepartmentDto toWarehouseViewDto(Department department) {
+    public static DepartmentDto toDepartmentViewDto(Department department) {
         return DepartmentDto.builder()
                 .id(department.getId())
                 .name(department.getName())
@@ -13,9 +13,9 @@ public class DepartmentConverter {
                 .build();
     }
 
-    public static Department toDepartment(DepartmentDto warehouseDto, Department oldDepartment) {
-        oldDepartment.setName(warehouseDto.getName());
-        oldDepartment.setVersion(warehouseDto.getVersion());
+    public static Department toDepartment(DepartmentDto departmentDto, Department oldDepartment) {
+        oldDepartment.setName(departmentDto.getName());
+        oldDepartment.setVersion(departmentDto.getVersion());
         return oldDepartment;
     }
 

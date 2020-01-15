@@ -40,34 +40,34 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('DEPARTMENT_LIST_READ')")
     public List<Department> getAll() {
-        return departmentRepository.findAll().stream().filter(warehouse -> !warehouse.isDeleted()).collect(Collectors.toList());
+        return departmentRepository.findAll().stream().filter(department -> !department.isDeleted()).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEPARTMENT_CREATE')")
-    public void createDepartment(DepartmentDto warehouseDto) throws DatabaseErrorException {
+    public void createDepartment(DepartmentDto departmentDto) throws DatabaseErrorException {
         try {
             Department department = new Department();
-            Department savedDepartment = departmentRepository.saveAndFlush(DepartmentConverter.toDepartment(warehouseDto, department));
+            Department savedDepartment = departmentRepository.saveAndFlush(DepartmentConverter.toDepartment(departmentDto, department));
             kafkaProducer.send(savedDepartment);
         } catch (PersistenceException e) {
-            throw new DatabaseErrorException(DatabaseErrorException.WAREHOUSE_NAME_TAKEN);
+            throw new DatabaseErrorException(DatabaseErrorException.DEPARTMENT_NAME_TAKEN);
         }
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
-    public void updateDepartment(DepartmentDto warehouseDto) throws EntityNotInDatabaseException, DatabaseErrorException {
+    public void updateDepartment(DepartmentDto departmentDto) throws EntityNotInDatabaseException, DatabaseErrorException {
         try {
-            Department oldDepartment = departmentRepository.findById(warehouseDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
+            Department oldDepartment = departmentRepository.findById(departmentDto.getId()).orElseThrow(() -> new EntityNotInDatabaseException(EntityNotInDatabaseException.NO_OBJECT));
             departmentRepository.detach(oldDepartment);
-            Department department = DepartmentConverter.toDepartment(warehouseDto, oldDepartment);
+            Department department = DepartmentConverter.toDepartment(departmentDto, oldDepartment);
             departmentRepository.saveAndFlush(department);
             kafkaProducer.send(department);
         } catch (PersistenceException e) {
-            throw new DatabaseErrorException(DatabaseErrorException.WAREHOUSE_NAME_TAKEN);
+            throw new DatabaseErrorException(DatabaseErrorException.DEPARTMENT_NAME_TAKEN);
         }
     }
 

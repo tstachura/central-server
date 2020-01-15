@@ -16,7 +16,7 @@ public class DatabaseErrorException extends SystemBaseException {
     public static final String SAME_PASSWORD = "same_password";
 
     //Department response codes
-    public static final String WAREHOUSE_NAME_TAKEN = "wn_taken";
+    public static final String DEPARTMENT_NAME_TAKEN = "dn_taken";
 
     //Product response codes
     public static final String SERIAL_NUMBER_NAME_TAKEN = "sn_taken";

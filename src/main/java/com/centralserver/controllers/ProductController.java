@@ -46,11 +46,11 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @RequestMapping(value = "/warehouse/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/department/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     public @ResponseBody
-    List<Product> getAllProductsForWarehouse(@PathVariable Long id) {
-        return productService.getAllProductsForWarehouse(id);
+    List<Product> getAllProductsForDepartment(@PathVariable UUID id) {
+        return productService.getAllProductsForDepartment(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -23,11 +23,11 @@ public interface DepartmentService {
 
     @Transactional
     @PreAuthorize("hasAuthority('DEPARTMENT_CREATE')")
-    void createDepartment(DepartmentDto warehouseDto) throws DatabaseErrorException;
+    void createDepartment(DepartmentDto departmentDto) throws DatabaseErrorException;
 
     @Transactional
     @PreAuthorize("hasAuthority('DEPARTMENT_UPDATE')")
-    void updateDepartment(DepartmentDto warehouseDto) throws EntityNotInDatabaseException, DatabaseErrorException;
+    void updateDepartment(DepartmentDto departmentDto) throws EntityNotInDatabaseException, DatabaseErrorException;
 
     @Transactional
     @PreAuthorize("hasAuthority('DEPARTMENT_DELETE')")

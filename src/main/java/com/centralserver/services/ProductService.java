@@ -19,8 +19,8 @@ public interface ProductService {
     List<Product> getAllProducts();
 
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
-    @PreAuthorize("hasAuthority('PRODUCT_LIST_FOR_WAREHOUSE_READ')")
-    List<Product> getAllProductsForWarehouse(Long departmentId);
+    @PreAuthorize("hasAuthority('PRODUCT_LIST_FOR_DEPARTMENT_READ')")
+    List<Product> getAllProductsForDepartment(UUID departmentId);
 
     @Transactional(propagation = Propagation.MANDATORY)
     @PreAuthorize("hasAuthority('PRODUCT_CREATE')")

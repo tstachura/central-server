@@ -52,10 +52,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true, propagation = Propagation.MANDATORY)
-    @PreAuthorize("hasAuthority('PRODUCT_LIST_FOR_WAREHOUSE_READ')")
-    public List<Product> getAllProductsForWarehouse(Long warehouseId) {
+    @PreAuthorize("hasAuthority('PRODUCT_LIST_FOR_DEPARTMENT_READ')")
+    public List<Product> getAllProductsForDepartment(UUID departmentId) {
         List<Product> products = Lists.newArrayList(productRepository.findAll()).stream()
-                .filter(product -> product.getDepartment().getId().equals(warehouseId) && !product.isDeleted()).collect(Collectors.toList());
+                .filter(product -> product.getDepartment().getId().equals(departmentId) && !product.isDeleted()).collect(Collectors.toList());
         products.forEach(product -> Hibernate.initialize(product.getProductType()));
         return products;
     }
