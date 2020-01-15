@@ -33,7 +33,7 @@ public class User implements UserDetails, Serializable, Identifiable<UUID> {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id = null;
 
-    @Version
+    @Version()
     @Column(name = "VERSION")
     private long version;
 

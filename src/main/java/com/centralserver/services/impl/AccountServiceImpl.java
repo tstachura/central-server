@@ -135,6 +135,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public void mergeUserdata(Userdata userdata) {
+        userdataRepository.merge(userdata);
+    }
+
+    @Override
     @Transactional
     @PreAuthorize("hasAuthority('USER_CREATE')")
     public void registerNewUserAccount(final RegistrationDto data, boolean verified) throws EntityNotInDatabaseException, DatabaseErrorException {
